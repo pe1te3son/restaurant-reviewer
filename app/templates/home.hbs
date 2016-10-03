@@ -5,6 +5,7 @@
  {{#each restaurants as |venue|}}
    {{restaurant-thumb venue=venue}}
  {{/each}}
+  {{main-navigation class="mdl-layout__drawer" id="main-custom-nav"}}
 
  {{!-- <div class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--2dp restaurant-thumb">
    load more
@@ -15,5 +16,6 @@
    </button>
  </div>
 
+         {{restaurant-thumb venue=venue class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--2dp restaurant-thumb"}}
 
 </div>

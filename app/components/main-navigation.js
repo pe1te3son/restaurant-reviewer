@@ -1,11 +1,12 @@
 import Ember from 'ember';
 
+/* global componentHandler */
 export default Ember.Component.extend({
-  tagName: 'nav',
-  classNames: ['mdl-navigation'],
-
   didInsertElement(){
     this._super();
     componentHandler.upgradeAllRegistered();
-  }
+  },
+
+
+
 });
