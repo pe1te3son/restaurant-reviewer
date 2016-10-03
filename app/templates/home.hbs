@@ -1,21 +1,43 @@
-<div class="mdl-grid grid-handle" id="venues">
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer
+            mdl-layout--fixed-header">
+  <header class="mdl-layout__header">
+    <div class="mdl-layout__header-row">
 
-{{log restaurants}}
+      <div class="custom-nav-btn" role="button" tabindex="0" aria-expanded="false" id="nav-init" {{action "navInit"}}>
+        <i class="material-icons">menu</i>
+      </div>
+      <div class="mdl-layout-spacer"></div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
+                  mdl-textfield--floating-label mdl-textfield--align-right">
+        <label class="mdl-button mdl-js-button mdl-button--icon"
+               for="fixed-header-drawer-exp">
+          <i class="material-icons">search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder">
+          <input class="mdl-textfield__input" type="text" name="sample"
+                 id="fixed-header-drawer-exp">
+        </div>
+      </div>
+    </div>
+  </header>
 
- {{#each restaurants as |venue|}}
-   {{restaurant-thumb venue=venue}}
- {{/each}}
   {{main-navigation class="mdl-layout__drawer" id="main-custom-nav"}}
 
- {{!-- <div class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--2dp restaurant-thumb">
-   load more
- </div> --}}
- <div class="mdl-cell mdl-cell--4-col">
-   <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect load-more-btn">
-     Load more
-   </button>
- </div>
+  <main class="mdl-layout__content">
+    <div class="page-content">
 
+      <div class="mdl-grid grid-handle" id="venues">
+      {{log restaurants}}
+       {{#each restaurants as |venue|}}
          {{restaurant-thumb venue=venue class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--2dp restaurant-thumb"}}
+       {{/each}}
+       <div class="mdl-cell mdl-cell--4-col">
+         <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect load-more-btn">
+           Load more
+         </button>
+       </div>
+      </div>{{!-- /#venues --}}
 
+    </div>
+  </main>
 </div>
