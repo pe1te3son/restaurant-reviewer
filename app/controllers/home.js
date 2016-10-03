@@ -1,14 +1,25 @@
 import Ember from 'ember';
+import $ from 'jquery';
 
 export default Ember.Controller.extend({
   restaurants: [],
 
   init(){
     Ember.run.schedule('afterRender', ()=>{
-      this.requestRestaurants(29, 6);
+      Ember.run.later(()=>{
+        //this.requestRestaurants(20, 6);
+      }, 1500);
+
     });
   },
 
+  actions: {
+    navInit(){
+      $('#main-custom-nav').addClass('is-visible');
+      $('#main-custom-nav').attr('aria-hidden', false);
+      $('.mdl-layout__obfuscator').addClass('is-visible');
+    }
+  },
   /**
   * @name Get restaurant by id
   * @param { String } id - restaurant id
