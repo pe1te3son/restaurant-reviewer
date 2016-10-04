@@ -5,7 +5,14 @@ export default Ember.Controller.extend({
   restaurants: [],
 
   init(){
+
+
     Ember.run.schedule('afterRender', ()=>{
+
+
+      let list = this.createCategoryList(this.get('model').response.venues);
+      this.set('restauranSelectList', list);
+
       Ember.run.later(()=>{
         //this.requestRestaurants(20, 6);
       }, 1500);
@@ -15,8 +22,8 @@ export default Ember.Controller.extend({
 
   actions: {
     navInit(){
-      $('#main-custom-nav').addClass('is-visible');
-      $('#main-custom-nav').attr('aria-hidden', false);
+      $('#filter-menu').addClass('is-visible');
+      $('#filter-menu').attr('aria-hidden', false);
       $('.mdl-layout__obfuscator').addClass('is-visible');
       this.lockBackground();
     },
@@ -57,12 +64,12 @@ export default Ember.Controller.extend({
   },
 
   lockBackground(){
-    if(!$('#main-custom-nav').hasClass('is-visible')){
+    if(!$('#filter-menu').hasClass('is-visible')){
       return;
     }
     const focusableElementString = 'select:not([disabled]), button:not([disabled]), [tabindex="0"], input:not([disabled]), a[href]';
     const backgroundActiveEl = document.activeElement;
-    const sideNav = document.getElementById('side-nav');
+    const sideNav = document.getElementById('category-filter');
     const focusableElements =  sideNav.querySelectorAll(focusableElementString);
     const firstEl = focusableElements[0];
     const lastEl = focusableElements[focusableElements.length - 1];
@@ -94,6 +101,14 @@ export default Ember.Controller.extend({
         }
       }
     }
+  },
+
+  createCategoryList(object){
+    let list = [];
+    object.forEach((venue)=>{
+      list.pushObject({categoryName: venue.categories[0].shortName, categoryId: venue.categories[0].id });
+    });
+    return list.uniqBy('categoryName');
   }
 
 });
