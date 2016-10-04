@@ -11,7 +11,7 @@ export default Ember.Controller.extend({
 
 
       let list = this.createCategoryList(this.get('model').response.venues);
-      this.set('restauranSelectList', list);
+      this.set('restaurantSelectList', list);
 
       Ember.run.later(()=>{
         //this.requestRestaurants(20, 6);

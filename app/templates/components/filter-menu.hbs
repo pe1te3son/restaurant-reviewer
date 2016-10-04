@@ -3,7 +3,7 @@
   <div class="select-group">
     <label for="select-category">Select Category</label>
     <select class="select-category" onchange={{ action "categorySelected" value="target.value"}} onfocus={{ action "categorySelected" value="target.value"}} id="select-category" tabindex="0">
-      {{#each restauranSelectList as |item| }}
+      {{#each restaurantSelectList as |item| }}
       <option value={{item.categoryId}}>{{item.categoryName}}</option>
       {{/each}}
     </select>
