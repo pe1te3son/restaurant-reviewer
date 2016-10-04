@@ -21,6 +21,8 @@ export default Ember.Controller.extend({
       this.lockBackground();
     },
 
+    filterSelected(e){
+      console.log(e);
     }
   },
   /**

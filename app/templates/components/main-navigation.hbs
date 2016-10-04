@@ -1,7 +1,20 @@
-<span class="mdl-layout-title">Title</span>
-  <nav class="mdl-navigation">
-    <a class="mdl-navigation__link" href="">Link</a>
-    <a class="mdl-navigation__link" href="">Link</a>
-    <a class="mdl-navigation__link" href="">Link</a>
-    <a class="mdl-navigation__link" href="">Link</a>
-  </nav>
+<span class="nav-title">Restaurant Reviewer</span>
+
+<div class="" id="side-nav">
+  <div class="select-group">
+    <label for="side-nav">Select Category</label>
+    <select class="select-category" onchange={{ action "categorySelected" value="target.value"}}>
+      <option value="Select category" selected disabled>Select Category</option>
+      <option>hey</option>
+      <option>no</option>
+      <option>ye</option>
+    </select>
+  </div>
+
+  <div class="filter-btn text-right">
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" role="button" onclick={{action "filterRestaurants"}}>
+      Filter
+    </button>
+  </div>
+
+</div>
