@@ -2,10 +2,10 @@
             mdl-layout--fixed-header">
   <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
-
-      <div class="custom-nav-btn" role="button" tabindex="0" aria-expanded="false" id="nav-init" {{action "navInit"}}>
-        <i class="material-icons">menu</i>
-      </div>
+      <label for="nav-init" class="sr-only">Filter restaurants</label>
+      <button class="custom-nav-btn" role="button" tabindex="0" id="nav-init" {{action "navInit"}}>
+        <i class="material-icons" aria-hidden="true">filter_list</i>
+      </button>
       <div class="mdl-layout-spacer"></div>
       <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
                   mdl-textfield--floating-label mdl-textfield--align-right">
