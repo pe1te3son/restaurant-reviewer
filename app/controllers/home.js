@@ -18,6 +18,9 @@ export default Ember.Controller.extend({
       $('#main-custom-nav').addClass('is-visible');
       $('#main-custom-nav').attr('aria-hidden', false);
       $('.mdl-layout__obfuscator').addClass('is-visible');
+      this.lockBackground();
+    },
+
     }
   },
   /**
@@ -49,6 +52,46 @@ export default Ember.Controller.extend({
           this.restaurants.pushObject(resp);
         });
       }, Promise.resolve());
+  },
+
+  lockBackground(){
+    if(!$('#main-custom-nav').hasClass('is-visible')){
+      return;
+    }
+    const focusableElementString = 'select:not([disabled]), button:not([disabled]), [tabindex="0"], input:not([disabled]), a[href]';
+    const backgroundActiveEl = document.activeElement;
+    const sideNav = document.getElementById('side-nav');
+    const focusableElements =  sideNav.querySelectorAll(focusableElementString);
+    const firstEl = focusableElements[0];
+    const lastEl = focusableElements[focusableElements.length - 1];
+
+    firstEl.focus();
+    sideNav.addEventListener('keydown', (event)=>{
+
+      if(event.keyCode === 27) {
+        return backgroundActiveEl.focus();
+      }
+
+      this.trapTabKey(event, firstEl, lastEl );
+    });
+  },
+
+  trapTabKey(event, ...params){
+    const [ firstEl, lastEl ] = params;
+
+    if(event.keyCode === 9){
+      if(event.shiftKey){
+        if(document.activeElement === firstEl) {
+          event.preventDefault();
+          return lastEl.focus();
+        }
+      } else {
+        if(document.activeElement === lastEl){
+          event.preventDefault();
+          return firstEl.focus();
+        }
+      }
+    }
   }
 
 });
