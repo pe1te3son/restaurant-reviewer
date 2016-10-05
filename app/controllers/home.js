@@ -3,6 +3,7 @@ import $ from 'jquery';
 
 export default Ember.Controller.extend({
   restaurants: [],
+  restaurantSelectList: null,
 
   init(){
 
@@ -14,8 +15,8 @@ export default Ember.Controller.extend({
       this.set('restaurantSelectList', list);
 
       Ember.run.later(()=>{
-        //this.requestRestaurants(20, 6);
-      }, 1500);
+        this.requestRestaurants(1, 6);
+      }, 1000);
 
     });
   },
@@ -55,9 +56,15 @@ export default Ember.Controller.extend({
     },
   },//actions
 
+  disableFilter: function(){
+
+    if(!this.get('restaurantSelectList').length){
+      $('.load-more-btn').attr('disabled', 'disabled');
+    } else {
+      $('.load-more-btn').removeAttr('disabled');
     }
 
-  },
+  }.observes('restaurantSelectList'),
 
   /**
   * @name Get restaurant by id
