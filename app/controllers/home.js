@@ -34,7 +34,11 @@ export default Ember.Controller.extend({
     },
 
     loadMore(){
-
+      if(!this.get('model')){
+        return;
+      }
+      //Set focus to last element before clicking to load more
+      $('#venues').children().eq(-2).find('.thumb-link').focus();
       /*
         Includes loadMore button. Which is fine because we want to load venues
         from index + 1
@@ -46,7 +50,11 @@ export default Ember.Controller.extend({
         $('.load-more-btn').attr('disabled', 'disabled');
       }
       //Load more
-      this.requestRestaurants(currentlyOnScreen, 10);
+
+      this.requestRestaurants(currentlyOnScreen, 6);
+    },
+  },//actions
+
     }
 
   },
