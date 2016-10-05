@@ -22,6 +22,7 @@ export default Ember.Controller.extend({
 
   actions: {
     navInit(){
+      // this.set('loaderOn', true);
       $('#filter-menu').addClass('is-visible');
       $('#filter-menu').attr('aria-hidden', false);
       $('.mdl-layout__obfuscator').addClass('is-visible');
@@ -31,6 +32,7 @@ export default Ember.Controller.extend({
     filterSelected(e){
       console.log(e);
     }
+
   },
   /**
   * @name Get restaurant by id
@@ -44,15 +46,23 @@ export default Ember.Controller.extend({
       return response.json();
     });
   },
+
+  /**
+  * @name Request restaurants
+  * @desc Fetches restaurants based on option values
+  * @param { Array } options
+  */
   requestRestaurants(...params){
     const [indexStart, count] = params;
-    let restaurantIds = [];
 
+    // Build array of ids from all nearby restaurants saved in model
+    let restaurantIds = [];
     let countMax = indexStart + count > this.model.response.venues.length ? this.model.response.venues.length : indexStart + count;
     for(var i=indexStart; i<countMax; i++){
       restaurantIds.push(this.model.response.venues[i].id);
     }
 
+    //Fetch restaurants sequentially
     restaurantIds.map(this.get('getRestaurantById'))
       .reduce((sequence, venuePromise)=>{
         return sequence.then(()=>{
@@ -63,11 +73,17 @@ export default Ember.Controller.extend({
       }, Promise.resolve());
   },
 
+  /**
+  * @name Lock Background
+  * @desc Disallow use of TAB on page when side nav is open
+  * @requires { trapTabKey }  function
+  */
   lockBackground(){
     if(!$('#filter-menu').hasClass('is-visible')){
       return;
     }
     const focusableElementString = 'select:not([disabled]), button:not([disabled]), [tabindex="0"], input:not([disabled]), a[href]';
+    // Save 
     const backgroundActiveEl = document.activeElement;
     const sideNav = document.getElementById('category-filter');
     const focusableElements =  sideNav.querySelectorAll(focusableElementString);
@@ -85,6 +101,12 @@ export default Ember.Controller.extend({
     });
   },
 
+  /**
+  * @name Trap TAB key
+  * @desc Sets focus to first or last element based on current active element
+  * @param { Object } event - checks for TAB or shift + TAB keyCode
+  * @param { Array } first and last element
+  */
   trapTabKey(event, ...params){
     const [ firstEl, lastEl ] = params;
 
@@ -103,6 +125,11 @@ export default Ember.Controller.extend({
     }
   },
 
+  /**
+  * @name Create Category List
+  * @param { Object } object - all venues from nearby restaurants query search
+  * @return unique list of all restaurant categories
+  */
   createCategoryList(object){
     let list = [];
     object.forEach((venue)=>{
