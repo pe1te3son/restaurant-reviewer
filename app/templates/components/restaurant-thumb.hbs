@@ -1,5 +1,10 @@
 <div class="mdl-card__title card-background" style={{best-photo venue.response.venue.bestPhoto}}>
-  <h2 class="mdl-card__title-text card-title" tabindex="0">{{venue.response.venue.name}}</h2>
+
+  <h2 class="mdl-card__title-text card-title">
+    {{#link-to 'restaurant' venue.response.venue.id tabindex="0"}}
+      {{venue.response.venue.name}}
+    {{/link-to}}
+  </h2>
 </div>
 
 <div class="mdl-card__supporting-text thumb-info">
@@ -18,7 +23,7 @@
 {{/if}}
 </div>
 <div class="mdl-card__actions mdl-card--border card-action">
-  <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+  {{#link-to 'restaurant' venue.response.venue.id tabindex="-1" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"}}
     Review Restaurant
-  </a>
+  {{/link-to}}
 </div>
