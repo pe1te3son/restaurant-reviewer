@@ -20,7 +20,10 @@
       </div>
     </div>
   </header>
-  <div id="p2" class="mdl-progress mdl-js-progress mdl-progress__indeterminate loader-mdl {{if loaderOn 'show'}}"></div>
+  <div id="main-spinner" class="text-center {{if loaderOn 'show'}}">
+    <div class="mdl-spinner mdl-js-spinner is-active"></div>
+  </div>
+
 
   {{filter-menu class="mdl-layout__drawer" id="filter-menu" filterInit="filterSelected" tagName="aside" restaurantSelectList=restaurantSelectList}}
 

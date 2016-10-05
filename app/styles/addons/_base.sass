@@ -11,8 +11,30 @@ body
 .text-right
   text-align: right
 
+.text-center
+  text-align: center
+
 .loader-mdl
   display: none
 
+.mdl-progress
+  margin-top: 0.5rem
+
 .show
   display: block !important
+
+#main-spinner
+  display: none
+  position: fixed
+  top: 100px
+  right: 50%
+  width: 28px
+  height: 28px
+  padding: 4px
+  background: $color4
+  border-radius: 50%
+  box-shadow: 0 0 10px $color5
+  z-index: 10000
+
+button[disabled]
+  cursor: not-allowed !important
