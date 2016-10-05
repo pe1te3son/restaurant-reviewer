@@ -31,9 +31,26 @@ export default Ember.Controller.extend({
 
     filterSelected(e){
       console.log(e);
+    },
+
+    loadMore(){
+
+      /*
+        Includes loadMore button. Which is fine because we want to load venues
+        from index + 1
+      */
+      const currentlyOnScreen = $('#venues').children().length;
+
+      //Disable button if all restaurants loaded
+      if(this.get('model').response.venues.length === currentlyOnScreen){
+        $('.load-more-btn').attr('disabled', 'disabled');
+      }
+      //Load more
+      this.requestRestaurants(currentlyOnScreen, 10);
     }
 
   },
+
   /**
   * @name Get restaurant by id
   * @param { String } id - restaurant id
