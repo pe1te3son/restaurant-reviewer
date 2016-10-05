@@ -85,6 +85,10 @@ export default Ember.Controller.extend({
   * @param { Array } options
   */
   requestRestaurants(...params){
+    if(!this.model){ return; }
+    if(!this.model.response.venues.length){ return; }
+
+    this.set('loaderOn', true);
     const [indexStart, count] = params;
 
     // Build array of ids from all nearby restaurants saved in model
@@ -102,7 +106,10 @@ export default Ember.Controller.extend({
         }).then((resp)=>{
           this.restaurants.pushObject(resp);
         });
-      }, Promise.resolve());
+      }, Promise.resolve()).then(()=>{
+        this.set('loaderOn', false);
+      });
+
   },
 
   /**
@@ -115,7 +122,6 @@ export default Ember.Controller.extend({
       return;
     }
     const focusableElementString = 'select:not([disabled]), button:not([disabled]), [tabindex="0"], input:not([disabled]), a[href]';
-    // Save 
     const backgroundActiveEl = document.activeElement;
     const sideNav = document.getElementById('category-filter');
     const focusableElements =  sideNav.querySelectorAll(focusableElementString);
