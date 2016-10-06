@@ -3,22 +3,22 @@
     <div class="mdl-layout__header-row">
       <!-- Title -->
       <span class="mdl-layout-title">Restaurant Reviewer</span>
-      <!-- Add spacer, to align navigation to the right -->
-      <div class="mdl-layout-spacer"></div>
     </div>
   </header>
-  <main class="mdl-layout__content">
   <main class="mdl-layout__content" role="main">
     <div class="page-content">
-      <!-- Textfield with Floating Label -->
 
-      <form class="home-page-form text-right" onsubmit={{ action "submitSearch"}}>
+      <form class="home-page-form text-right {{if showWarning 'has-warning'}}" onsubmit={{action "preventFormFromSubmiting"}}>
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label home-page-text-field">
-          <input class="mdl-textfield__input" type="text" id="current-location" onfocus={{ action "autocompleteFn"}}>
-          <label class="mdl-textfield__label text-center" for="current-location">Search restaurants</label>
+          {{input class="mdl-textfield__input" type="text" id="current-location" focus-in="autocompleteFn" value=searchInput tabindex="0"}}
+          {{#if showWarning}}
+            <label class="mdl-textfield__label text-center home-page-label" for="current-location">Please select location!</label>
+          {{else}}
+            <label class="mdl-textfield__label text-center home-page-label" for="current-location">Current Location</label>
+          {{/if}}
         </div>
 
-        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-js-ripple-effect">
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-js-ripple-effect" onclick={{ action "submitSearch" bubbles="false"}}>
           <i class="material-icons">search</i>
         </button>
       </form>
