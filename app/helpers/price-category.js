@@ -11,8 +11,10 @@ export function priceCategory(params/*, hash*/) {
     return priceTag;
   }
 
-  const priceSummary = venue.attributes.groups.findBy('name', 'Price').summary;
-  return priceSummary ? priceSummary : '';
+  if(venue.attributes.groups.findBy('name', 'Price')){
+    const priceSummary = venue.attributes.groups.findBy('name', 'Price').summary;
+    return priceSummary ? priceSummary : '';
+  }
 
 }
 
