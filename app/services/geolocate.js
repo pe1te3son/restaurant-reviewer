@@ -1,22 +1,44 @@
 import Ember from 'ember';
 
 export default Ember.Service.extend({
+  place: null,
 
-  getCurrentLocation(){
-    return navigator.geolocation.getCurrentPosition(this.successGeo, this.errorGeo, this.options);
+  initAutocomplete: function(elemenId){
+      // Create the autocomplete object, restricting the search to geographical
+      // location types.
+      if(elemenId){
+        let autocomplete = new google.maps.places.Autocomplete(
+            /** @type {!HTMLInputElement} */(document.getElementById(elemenId)),
+            {types: ['geocode']});
+
+        autocomplete.addListener('place_changed', ()=>{
+          let place = autocomplete.getPlace();
+          this.set('place', place);
+        });
+        this.geolocate(autocomplete);
+        this.set('autocomplete', autocomplete);
+      }
   },
 
-  successGeo(){
-    console.log('got it');
+  getPlace(){
+    return this.get('place');
   },
-
-  errorGeo(){
-    console.log('geo error');
-  },
-
-  options: {
-    enableHighAccuracy: false,
-    timeout: 5000,
-    maximumAge: 0
-  }
+  geolocate: function(autocomplete) {
+     // Bias the autocomplete object to the user's geographical location,
+     // as supplied by the browser's 'navigator.geolocation' object.
+     if (navigator.geolocation) {
+       navigator.geolocation.getCurrentPosition(function(position) {
+         var geolocation = {
+           lat: position.coords.latitude,
+           lng: position.coords.longitude
+         };
+         /* global google */
+         var circle = new google.maps.Circle({
+           center: geolocation,
+           radius: position.coords.accuracy
+         });
+         autocomplete.setBounds(circle.getBounds());
+       });
+     }
+   },//geolocate
 });
