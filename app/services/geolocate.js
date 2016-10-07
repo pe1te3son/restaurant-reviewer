@@ -20,9 +20,6 @@ export default Ember.Service.extend({
       }
   },
 
-  getPlace(){
-    return this.get('place');
-  },
   geolocate: function(autocomplete) {
      // Bias the autocomplete object to the user's geographical location,
      // as supplied by the browser's 'navigator.geolocation' object.
