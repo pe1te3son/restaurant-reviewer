@@ -8,7 +8,7 @@
   <main class="mdl-layout__content" role="main">
     <div class="page-content">
 
-      <form class="home-page-form text-right {{if showWarning 'has-warning'}}" onsubmit={{action "preventFormFromSubmiting"}}>
+      <form class="home-page-form text-right {{if showWarning 'has-warning'}}" >
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label home-page-text-field">
           {{input class="mdl-textfield__input" type="text" id="current-location" focus-in="autocompleteFn" value=searchInput tabindex="0"}}
           {{#if showWarning}}
@@ -17,8 +17,8 @@
             <label class="mdl-textfield__label text-center home-page-label" for="current-location">Current Location</label>
           {{/if}}
         </div>
-
-        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-js-ripple-effect" onclick={{ action "submitSearch" bubbles="false"}}>
+        <button type="submit" name="button" hidden tabindex="-1" onclick={{ action "preventFormFromSubmiting"}}></button>
+        <button role="button" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-js-ripple-effect" {{ action "submitSearch"}} tabindex="0">
           <i class="material-icons">search</i>
         </button>
       </form>

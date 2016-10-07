@@ -14,28 +14,28 @@ export default Ember.Controller.extend({
 
   actions: {
     autocompleteFn(){
+      /* global componentHandler*/
+      componentHandler.upgradeAllRegistered();
       this.get('autocompleteSrv').initAutocomplete('current-location');
     },
 
-    submitSearch(event){
-      event.preventDefault();
-      const place = this.get('autocompleteSrv').getCurrentPlace();
-
-      if(place && this.get('searchInput').length > 0){
-        this.set('showWarning', false);
+    submitSearch(){
+      const place = this.get('autocompleteSrv').place;
+      const lat = place.geometry.location.lat();
+      const lng = place.geometry.location.lng();
+      if(lat && lng){
+        this.set('searchInput', null);
         this.transitionToRoute('search-results', {
-          queryParams: {
-            lat: place.geometry.location.lat(),
-            lng:  place.geometry.location.lng()
-          }
-        });
-      } else {
-        this.set('showWarning', true);
-        $('#current-location').focus();
+            queryParams: {
+              lat: place.geometry.location.lat(),
+              lng:  place.geometry.location.lng()
+            }
+          });
       }
     },
 
     preventFormFromSubmiting(event){
+      // Only submit button will submit a form
       event.preventDefault();
     }
   },//actions
