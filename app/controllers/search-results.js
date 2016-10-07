@@ -117,7 +117,11 @@ export default Ember.Controller.extend({
           this.restaurants.pushObject(resp);
         });
       }, Promise.resolve()).then(()=>{
-        this.set('loaderOn', false);
+
+        Ember.run.later(()=>{
+          this.set('loaderOn', false);
+        }, 500);
+
       });
 
   },
