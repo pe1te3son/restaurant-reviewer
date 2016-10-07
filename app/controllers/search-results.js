@@ -6,6 +6,7 @@ export default Ember.Controller.extend({
   restaurants: [],
   restaurantSelectList: null,
   queryParams: ['lat', 'lng'],
+  categorySelected: null,
 
   init(){
 
@@ -27,7 +28,7 @@ export default Ember.Controller.extend({
 
         let list = this.createCategoryList(this.get('model').response.venues);
         this.set('restaurantSelectList', list);
-        this.requestRestaurants(1, 6);
+        this.requestRestaurants(0, 6);
 
       }
     }
@@ -45,8 +46,11 @@ export default Ember.Controller.extend({
       this.lockBackground();
     },
 
-    filterSelected(e){
-      console.log(e);
+    filterSelected(cateoryId){
+      console.log(cateoryId);
+      this.set('restaurants', []);
+      this.set('categorySelected', cateoryId);
+      this.requestRestaurants(0, 6, cateoryId);
     },
 
     loadMore(){
@@ -63,7 +67,7 @@ export default Ember.Controller.extend({
         $('.load-more-btn').attr('disabled', 'disabled');
       }
       //Load more
-      this.requestRestaurants(currentlyOnScreen, 6);
+      this.requestRestaurants(currentlyOnScreen, 6, this.get('categorySelected'));
     },
   },//actions
 
@@ -88,15 +92,27 @@ export default Ember.Controller.extend({
   requestRestaurants(...params){
 
     this.set('loaderOn', true);
-    const [indexStart, count] = params;
+    const [indexStart, count, category] = params;
 
     // Build array of ids from all nearby restaurants saved in model
     let restaurantIds = [];
     let countMax = indexStart + count > this.model.response.venues.length ? this.model.response.venues.length : indexStart + count;
-    for(var i=indexStart; i<countMax; i++){
-      restaurantIds.push(this.model.response.venues[i].id);
+
+    if(category){
+      let filteredByCategory = [];
+      for(var j=0; j<this.model.response.venues.length; j++){
+        if(this.model.response.venues[j].categories[0].id === category){
+          filteredByCategory.push(this.model.response.venues[j].id);
+        }
+      }
+      restaurantIds = filteredByCategory.slice(indexStart, count);
+    } else {
+      for(var i=indexStart; i<countMax; i++){
+        restaurantIds.push(this.model.response.venues[i].id);
+      }
     }
 
+    console.log(restaurantIds);
     //Fetch restaurants sequentially
     restaurantIds.map(this.get('getRestaurantById'))
       .reduce((sequence, venuePromise)=>{
