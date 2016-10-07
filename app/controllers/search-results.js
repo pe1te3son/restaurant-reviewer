@@ -6,7 +6,8 @@ export default Ember.Controller.extend({
   restaurants: [],
   restaurantSelectList: null,
   queryParams: ['lat', 'lng'],
-  categorySelected: null,
+  filterActive: false,
+  filteredRestaurants: null,
 
   init(){
 
@@ -23,6 +24,7 @@ export default Ember.Controller.extend({
   },
 
   modelHasChange: function(){
+    this.set('restaurants', []);
     try{
       if(this.get('model').response.venues.length) {
 
@@ -47,27 +49,32 @@ export default Ember.Controller.extend({
     },
 
     filterSelected(cateoryId){
-      console.log(cateoryId);
+      let filteredByCategory = [];
+      for(var j=0; j<this.model.response.venues.length; j++){
+        if(this.model.response.venues[j].categories[0].id === cateoryId){
+          filteredByCategory.push(this.model.response.venues[j].id);
+        }
+      }
+
+      this.set('filteredRestaurants', filteredByCategory);
       this.set('restaurants', []);
-      this.set('categorySelected', cateoryId);
-      this.requestRestaurants(0, 6, cateoryId);
+      this.set('filterActive', true);
+      this.disableLoadMoreButton(false);
+      this.requestRestaurants(0, 6, filteredByCategory);
     },
 
     loadMore(){
       //Set focus to last element before clicking to load more
       $('#venues').children().eq(-2).find('.thumb-link').focus();
-      /*
-        Includes loadMore button. Which is fine because we want to load venues
-        from index + 1
-      */
-      const currentlyOnScreen = $('#venues').children().length;
 
-      //Disable button if all restaurants loaded
-      if(this.get('model').response.venues.length === currentlyOnScreen){
-        $('.load-more-btn').attr('disabled', 'disabled');
-      }
-      //Load more
-      this.requestRestaurants(currentlyOnScreen, 6, this.get('categorySelected'));
+      // Don`t include load more button
+      const currentlyOnScreen = $('#venues').children().length - 1;
+
+      // Disable load more button if condition is true
+      // if true all restaurants have been loaded on screen
+      this.disableLoadMoreButton(this.get('model').response.venues.length === currentlyOnScreen);
+      this.disableLoadMoreButton(this.get('filterActive') && this.get('filteredRestaurants').length === currentlyOnScreen);
+      this.requestRestaurants(currentlyOnScreen, 6, this.get('filteredRestaurants'));
     },
   },//actions
 
@@ -92,27 +99,20 @@ export default Ember.Controller.extend({
   requestRestaurants(...params){
 
     this.set('loaderOn', true);
-    const [indexStart, count, category] = params;
+    const [indexStart, count, optionalRestaurantsArray] = params;
 
     // Build array of ids from all nearby restaurants saved in model
     let restaurantIds = [];
-    let countMax = indexStart + count > this.model.response.venues.length ? this.model.response.venues.length : indexStart + count;
+    let countMax = indexStart + count >= this.model.response.venues.length ? this.model.response.venues.length : indexStart + count;
 
-    if(category){
-      let filteredByCategory = [];
-      for(var j=0; j<this.model.response.venues.length; j++){
-        if(this.model.response.venues[j].categories[0].id === category){
-          filteredByCategory.push(this.model.response.venues[j].id);
-        }
-      }
-      restaurantIds = filteredByCategory.slice(indexStart, count);
+    if(optionalRestaurantsArray){
+      restaurantIds = optionalRestaurantsArray.slice(indexStart, countMax);
     } else {
       for(var i=indexStart; i<countMax; i++){
         restaurantIds.push(this.model.response.venues[i].id);
       }
     }
 
-    console.log(restaurantIds);
     //Fetch restaurants sequentially
     restaurantIds.map(this.get('getRestaurantById'))
       .reduce((sequence, venuePromise)=>{
