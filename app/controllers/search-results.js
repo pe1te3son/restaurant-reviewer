@@ -8,32 +8,37 @@ export default Ember.Controller.extend({
   queryParams: ['lat', 'lng'],
 
   init(){
+
     Ember.run.schedule('afterRender', ()=>{
-      // TODO: remove later
-
-      if(this.get('model')){
-        if(this.get('model').response.venues.length) {
-
-          let list = this.createCategoryList(this.get('model').response.venues);
-          this.set('restaurantSelectList', list);
-
-        } else {
+      try {
+        if(!this.get('model').response.venues.length){
           $('#nav-init').attr('disabled', 'disabled');
         }
-      } else {
-        $('#nav-init').attr('disabled', 'disabled');
       }
-
-      Ember.run.later(()=>{
-        this.requestRestaurants(1, 6);
-      }, 1000);
-
+      catch(err){
+        console.log(err);
+      }
     });
   },
 
+  modelHasChange: function(){
+    try{
+      if(this.get('model').response.venues.length) {
+
+        let list = this.createCategoryList(this.get('model').response.venues);
+        this.set('restaurantSelectList', list);
+        this.requestRestaurants(1, 6);
+
+      }
+    }
+    catch(err){
+      console.log(err);
+    }
+
+  }.observes('model'),
+
   actions: {
     navInit(){
-      // this.set('loaderOn', true);
       $('#filter-menu').addClass('is-visible');
       $('#filter-menu').attr('aria-hidden', false);
       $('.mdl-layout__obfuscator').addClass('is-visible');
@@ -45,9 +50,6 @@ export default Ember.Controller.extend({
     },
 
     loadMore(){
-      if(!this.get('model')){
-        return;
-      }
       //Set focus to last element before clicking to load more
       $('#venues').children().eq(-2).find('.thumb-link').focus();
       /*
@@ -61,20 +63,9 @@ export default Ember.Controller.extend({
         $('.load-more-btn').attr('disabled', 'disabled');
       }
       //Load more
-
       this.requestRestaurants(currentlyOnScreen, 6);
     },
   },//actions
-
-  disableFilter: function(){
-
-    if(!this.get('restaurantSelectList').length){
-      $('.load-more-btn').attr('disabled', 'disabled');
-    } else {
-      $('.load-more-btn').removeAttr('disabled');
-    }
-
-  }.observes('restaurantSelectList'),
 
   /**
   * @name Get restaurant by id
@@ -95,8 +86,6 @@ export default Ember.Controller.extend({
   * @param { Array } options
   */
   requestRestaurants(...params){
-    if(!this.model){ return; }
-    if(!this.model.response.venues.length){ return; }
 
     this.set('loaderOn', true);
     const [indexStart, count] = params;
