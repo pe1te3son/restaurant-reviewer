@@ -193,6 +193,14 @@ export default Ember.Controller.extend({
       list.pushObject({categoryName: venue.categories[0].shortName, categoryId: venue.categories[0].id });
     });
     return list.uniqBy('categoryName');
+  },
+
+  disableLoadMoreButton(condition){
+    console.log(condition);
+    if(condition){
+      return $('.load-more-btn').attr('disabled', 'disabled');
+    }
+    $('.load-more-btn').removeAttr('disabled');
   }
 
 });
