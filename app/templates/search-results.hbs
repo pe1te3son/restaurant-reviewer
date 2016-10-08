@@ -37,7 +37,7 @@
          {{/each}}
        {{/if}}
 
-       {{#if (isGreaterThan model.response.venues 6)}}
+       {{#if (isGreaterThan model.response.venues.length 6)}}
        <div class="mdl-cell mdl-cell--4-col">
          <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect load-more-btn" {{action "loadMore"}}>
            Load more
