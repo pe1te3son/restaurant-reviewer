@@ -41,6 +41,12 @@ export default Ember.Controller.extend({
   }.observes('model'),
 
   actions: {
+    placeFound(e){
+      console.log(e);
+      $('#fixed-header-drawer-exp').val('');
+      $('#fixed-header-drawer-exp').blur();
+    },
+
     navInit(){
       $('#filter-menu').addClass('is-visible');
       $('#filter-menu').attr('aria-hidden', false);

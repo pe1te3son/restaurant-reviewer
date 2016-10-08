@@ -10,7 +10,9 @@
 
       <form class="home-page-form text-right {{if showWarning 'has-warning'}}" >
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label home-page-text-field">
-          {{input class="mdl-textfield__input" type="text" id="current-location" focus-in="autocompleteFn" value=searchInput tabindex="0"}}
+
+          {{search-restaurants class="mdl-textfield__input" type="text" id="current-location" tabindex="0" action="placeFound"}}
+
           {{#if showWarning}}
             <label class="mdl-textfield__label text-center home-page-label" for="current-location">Please select location!</label>
           {{else}}

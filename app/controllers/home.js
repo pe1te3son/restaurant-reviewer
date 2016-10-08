@@ -4,7 +4,6 @@ import $ from 'jquery';
 export default Ember.Controller.extend({
   autocompleteSrv: Ember.inject.service('geolocate'),
   showWarning: false,
-  searchInput: null,
 
   init(){
     Ember.run.schedule('afterRender', ()=>{
@@ -13,25 +12,18 @@ export default Ember.Controller.extend({
   },
 
   actions: {
-    autocompleteFn(){
-      /* global componentHandler*/
-      componentHandler.upgradeAllRegistered();
-      this.get('autocompleteSrv').initAutocomplete('current-location');
+    placeFound(latLng){
+      this.set('place', latLng);
     },
 
     submitSearch(){
-      const place = this.get('autocompleteSrv').place;
-      const lat = place.geometry.location.lat();
-      const lng = place.geometry.location.lng();
-      if(lat && lng){
-        this.set('searchInput', null);
-        this.transitionToRoute('search-results', {
-            queryParams: {
-              lat: place.geometry.location.lat(),
-              lng:  place.geometry.location.lng()
-            }
-          });
-      }
+      const place = this.get('place');
+      this.transitionToRoute('search-results', {
+          queryParams: {
+            lat: place.lat,
+            lng:  place.lng
+          }
+        });
     },
 
     preventFormFromSubmiting(event){
