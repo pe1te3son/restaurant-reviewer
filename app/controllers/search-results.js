@@ -202,11 +202,10 @@ export default Ember.Controller.extend({
   },
 
   disableLoadMoreButton(condition){
-    console.log(condition);
     if(condition){
       return $('.load-more-btn').attr('disabled', 'disabled');
     }
-    $('.load-more-btn').removeAttr('disabled');
+    return $('.load-more-btn').removeAttr('disabled');
   }
 
 });
