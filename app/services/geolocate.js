@@ -1,7 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Service.extend({
-  place: null,
 
   initAutocomplete: function(elemenId){
       // Create the autocomplete object, restricting the search to geographical
@@ -11,10 +10,6 @@ export default Ember.Service.extend({
             /** @type {!HTMLInputElement} */(document.getElementById(elemenId)),
             {types: ['geocode']});
 
-        autocomplete.addListener('place_changed', ()=>{
-          let place = autocomplete.getPlace();
-          this.set('place', place);
-        });
         this.geolocate(autocomplete);
         this.set('autocomplete', autocomplete);
       }
