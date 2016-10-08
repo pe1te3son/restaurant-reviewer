@@ -18,7 +18,7 @@ export default Ember.Controller.extend({
         }
       }
       catch(err){
-        console.log(err);
+        console.log('There are no restaurants');
       }
     });
   },
@@ -54,6 +54,11 @@ export default Ember.Controller.extend({
       this.lockBackground();
     },
 
+    /**
+    * @name Filter Selected
+    * @desc Filters restaurants by category each time new category selected
+    * @param { String } categoryId - category id
+    */
     filterSelected(cateoryId){
       let filteredByCategory = [];
       for(var j=0; j<this.model.response.venues.length; j++){
@@ -70,16 +75,18 @@ export default Ember.Controller.extend({
     },
 
     loadMore(){
-      //Set focus to last element before clicking to load more
+      // Set focus to last element before clicking to load more
       $('#venues').children().eq(-2).find('.thumb-link').focus();
 
       // Don`t include load more button
       const currentlyOnScreen = $('#venues').children().length - 1;
 
       // Disable load more button if condition is true
-      // if true all restaurants have been loaded on screen
+      // if condition is true, all restaurants have been loaded on screen
       this.disableLoadMoreButton(this.get('model').response.venues.length === currentlyOnScreen);
       this.disableLoadMoreButton(this.get('filterActive') && this.get('filteredRestaurants').length === currentlyOnScreen);
+
+      // Load more
       this.requestRestaurants(currentlyOnScreen, 6, this.get('filteredRestaurants'));
     },
   },//actions
