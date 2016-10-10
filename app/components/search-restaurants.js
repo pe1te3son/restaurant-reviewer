@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import $ from 'jquery';
 
 export default Ember.Component.extend({
   geolocateSRV: Ember.inject.service('geolocate'),
@@ -26,7 +25,10 @@ export default Ember.Component.extend({
         this.get('geolocateSRV').autocomplete.unbindAll();
       }
       catch(err){
-        console.log(err);
+        // Reports error if form submited by pressing enter. The reason is
+        // that it doesn`t wait for promise to be resolved
+        if(typeof err.TypeError === 'undefined') { return; }
+        console.error(err);
       }
     });
   },
