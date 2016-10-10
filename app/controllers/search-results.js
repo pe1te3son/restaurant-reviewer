@@ -3,6 +3,7 @@ import $ from 'jquery';
 
 export default Ember.Controller.extend({
   geolocate: Ember.inject.service('geolocate'),
+  requestLink: Ember.inject.service('build-requestlink'),
   restaurants: [],
   restaurantSelectList: null,
   queryParams: ['lat', 'lng'],
@@ -41,10 +42,19 @@ export default Ember.Controller.extend({
   }.observes('model'),
 
   actions: {
-    placeFound(e){
-      console.log(e);
+    placeFound(latLng){
       $('#fixed-header-drawer-exp').val('');
       $('#fixed-header-drawer-exp').blur();
+
+      const link = this.get('requestLink').build(latLng.lat, latLng.lng);
+      return fetch(link).then((response)=>{
+        return response.json();
+      })
+      .then((respJson)=>{
+        this.set('model', respJson);
+        return;
+      });
+
     },
 
     navInit(){
