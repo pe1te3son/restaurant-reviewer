@@ -14,9 +14,17 @@ export default Ember.Controller.extend({
   actions: {
     placeFound(latLng){
       this.set('place', latLng);
+      this.transitionToRoute('search-results', {
+          queryParams: {
+            lat: latLng.lat,
+            lng:  latLng.lng
+          }
+        });
     },
 
     submitSearch(){
+      if(typeof this.get('place') === 'undefined') { return; }
+
       const place = this.get('place');
       this.transitionToRoute('search-results', {
           queryParams: {
@@ -25,11 +33,6 @@ export default Ember.Controller.extend({
           }
         });
     },
-
-    preventFormFromSubmiting(event){
-      // Only submit button will submit a form
-      event.preventDefault();
-    }
   },//actions
 
 });
