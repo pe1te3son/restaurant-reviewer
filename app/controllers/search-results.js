@@ -51,8 +51,12 @@ export default Ember.Controller.extend({
         return response.json();
       })
       .then((respJson)=>{
+        this.disableLoadMoreButton(false);
         this.set('model', respJson);
         return;
+      })
+      .fail(()=>{
+        this.disableLoadMoreButton(true);
       });
 
     },
@@ -72,6 +76,7 @@ export default Ember.Controller.extend({
     filterSelected(categoryId){
       if(this.get('categoryId') === categoryId) { return; }
 
+      this.disableLoadMoreButton(false);
       this.set('categoryId', categoryId);
       if(!categoryId.length){
         this.set('restaurants', []);
@@ -100,10 +105,13 @@ export default Ember.Controller.extend({
       // Don`t include load more button
       const currentlyOnScreen = $('#venues').children().length - 1;
 
-      // Disable load more button if condition is true
-      // if condition is true, all restaurants have been loaded on screen
-      this.disableLoadMoreButton(this.get('model').response.venues.length === currentlyOnScreen);
-      this.disableLoadMoreButton(this.get('filterActive') && this.get('filteredRestaurants').length === currentlyOnScreen);
+      if(this.get('filterActive')){
+        // Disable load more button if condition is true
+        // if condition is true, all restaurants have been loaded on screen
+        this.disableLoadMoreButton(this.get('filteredRestaurants').length === currentlyOnScreen);
+      } else {
+        this.disableLoadMoreButton(this.get('model').response.venues.length === currentlyOnScreen);
+      }
 
       // Load more
       this.requestRestaurants(currentlyOnScreen, 6, this.get('filteredRestaurants'));
