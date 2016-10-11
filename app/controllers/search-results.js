@@ -70,6 +70,7 @@ export default Ember.Controller.extend({
     * @param { String } categoryId - category id
     */
     filterSelected(categoryId){
+      if(this.get('categoryId') === categoryId) { return; }
 
       this.set('categoryId', categoryId);
       if(!categoryId.length){
