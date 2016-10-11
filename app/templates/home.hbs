@@ -19,8 +19,7 @@
             <label class="mdl-textfield__label text-center home-page-label" for="current-location">Current Location</label>
           {{/if}}
         </div>
-        <button type="submit" name="button" hidden tabindex="-1" onclick={{ action "preventFormFromSubmiting"}}></button>
-        <button role="button" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-js-ripple-effect" {{ action "submitSearch"}} tabindex="0">
+        <button role="button" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-js-ripple-effect" type="submit" {{ action "submitSearch"}} tabindex="0">
           <i class="material-icons">search</i>
         </button>
       </form>
