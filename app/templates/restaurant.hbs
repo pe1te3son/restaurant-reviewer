@@ -1,1 +1,39 @@
-{{outlet}}
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+  <header class="mdl-layout__header">
+    <div class="mdl-layout__header-row">
+      <!-- Title -->
+
+      <button type="button" name="button" class="back-btn">back</button>
+
+      {{#link-to 'home' class="site-title"}}
+        <span class="mdl-layout-title">Restaurant Reviewer</span>
+      {{/link-to}}
+      <!-- Add spacer, to align navigation to the right -->
+      <div class="mdl-layout-spacer"></div>
+    </div>
+  </header>
+  <main class="mdl-layout__content" role="main">
+    <div class="mdl-grid grid-handle">
+
+      <div class="restaurant-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col">
+        <h2>{{model.name}}</h2>
+
+        <div class="image-cont">
+          {{!-- <img class="img-responsive" src="{{model.bestPhoto.prefix}}1000x400{{model.bestPhoto.suffix}}" alt="" /> --}}
+          
+        </div>
+      </div>
+
+      <div class="restaurant-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
+        <h3>Comments</h3>
+
+        <div class="mdl-card__actions mdl-card--border">
+          <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+            Get Started
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
