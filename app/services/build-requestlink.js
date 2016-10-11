@@ -7,5 +7,9 @@ export default Ember.Service.extend({
 
   build(lat, lng){
     return `https://api.foursquare.com/v2/venues/search?categoryId=4d4b7105d754a06374d81259&ll=${lat},${lng}&radius=10000&${this.get('clientId')}&${this.get('clientSecret')}&v=20160929`;
+  },
+
+  idLink(id){
+    return `https://api.foursquare.com/v2/venues/${id}?${this.get('clientId')}&${this.get('clientSecret')}&v=20160929`;
   }
 });
