@@ -69,10 +69,18 @@ export default Ember.Controller.extend({
     * @desc Filters restaurants by category each time new category selected
     * @param { String } categoryId - category id
     */
-    filterSelected(cateoryId){
+    filterSelected(categoryId){
+
+      this.set('categoryId', categoryId);
+      if(!categoryId.length){
+        this.set('restaurants', []);
+        this.set('filterActive', false);
+        this.requestRestaurants(0, 6);
+        return;
+      }
       let filteredByCategory = [];
       for(var j=0; j<this.model.response.venues.length; j++){
-        if(this.model.response.venues[j].categories[0].id === cateoryId){
+        if(this.model.response.venues[j].categories[0].id === categoryId){
           filteredByCategory.push(this.model.response.venues[j].id);
         }
       }
@@ -107,7 +115,6 @@ export default Ember.Controller.extend({
   * @return promise
   */
   getRestaurantById(id) {
-
     let url = `https://api.foursquare.com/v2/venues/${id}?client_id=QII04JY4W2DNZNZPK4NXK4R1N3HUE4SD2OWT1FAPZIOAZJMY&client_secret=CBVRYTV2JXJXQJWFD51RY0UJ51SAMAFEPZLJZWGMRD3LQKF4&v=20160929`;
     return fetch(url).then((response)=>{
       return response.json();
