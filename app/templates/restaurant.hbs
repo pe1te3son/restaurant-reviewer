@@ -20,7 +20,7 @@
         <div class="mdl-card__title restaurant-bg" style={{best-photo model.bestPhoto}}></div>
 
         <div class="restaurant-likes text-right">
-            <i class="material-icons">thumb_up</i>
+            <i class="material-icons" aria-hidden="true">thumb_up</i>
             <span>{{model.likes.count}}</span>
         </div>
 
@@ -47,7 +47,7 @@
           <div class="title-cont">
             <h2 class="restaurant-title">{{model.name}}</h2>
             {{#if model.hours.status}}
-            <i id="restaurant-status" class="material-icons {{if model.hours.isOpen 'is-open'}}">radio_button_checked</i>
+            <i id="restaurant-status" aria-hidden="true" class="material-icons {{if model.hours.isOpen 'is-open'}}" tabindex="-1">radio_button_checked</i>
             <label class="mdl-tooltip" for="restaurant-status">{{model.hours.status}}</label>
             {{/if}}
           </div>
