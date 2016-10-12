@@ -88,33 +88,12 @@
 
     <div class="mdl-grid grid-handle">
 
-      <div class="comments-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col">
-        <div class="mdl-card__title">
-          <h2 class="mdl-card__title-text">Comments</h2>
-        </div>
-        <div class="mdl-card__supporting-text">
+        {{restaurant-comments
+          tagName="div"
+          comments=model.tips.groups.0.items
+          class="comments-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet"
+        }}
 
-          <ul class="list--unstyled">
-            {{log model.tips.groups.0.items}}
-            {{#each model.tips.groups.0.items as |comment|}}
-            <li class="comment-item">
-              <div class="user-img">
-                <img src="{{comment.user.photo.prefix}}50x50{{comment.user.photo.suffix}}" alt="Picture of {{user.firstName}}" />
-              </div>
-              {{comment.text}}
-
-            </li>
-            {{/each}}
-          </ul>
-
-        </div>
-        <div class="mdl-card__actions mdl-card--border">
-          <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-            Get Started
-          </a>
-        </div>
-
-      </div>{{!-- /.comments-card --}}
     </div>
   </main>
 </div>
