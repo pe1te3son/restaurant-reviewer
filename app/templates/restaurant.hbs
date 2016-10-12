@@ -15,23 +15,78 @@
   <main class="mdl-layout__content" role="main">
     <div class="mdl-grid grid-handle">
 
-      <div class="restaurant-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col">
-        <h2>{{model.name}}</h2>
+      <div class="restaurant-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
 
-        <div class="image-cont">
-          {{!-- <img class="img-responsive" src="{{model.bestPhoto.prefix}}1000x400{{model.bestPhoto.suffix}}" alt="" /> --}}
-          
+        <div class="mdl-card__title restaurant-bg" style={{best-photo model.bestPhoto}}></div>
+
+        <div class="restaurant-likes text-right">
+            <i class="material-icons">thumb_up</i>
+            <span>{{model.likes.count}}</span>
         </div>
+
+        <div class="mdl-card__actions mdl-card--border">
+
+          <ul class="reasons-list">
+            {{#each model.reasons.items as |reason|}}
+            <li class="reason-item">"{{reason.summary}}"</li>
+            {{/each}}
+          </ul>
+
+          <ul class="list--unstyled restaurant-tags">
+            {{#each model.tags as |tag|}}
+              <li class="tag"><i class="material-icons tag-icon" aria-hidden="true">local_offer</i>{{tag}}</li>
+            {{/each}}
+          </ul>
+
+        </div>
+
       </div>
 
       <div class="restaurant-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
-        <h3>Comments</h3>
+        <div class="mdl-card__supporting-text">
+          <div class="title-cont">
+            <h2 class="restaurant-title">{{model.name}}</h2>
+            {{#if model.hours.status}}
+            <i id="restaurant-status" class="material-icons {{if model.hours.isOpen 'is-open'}}">radio_button_checked</i>
+            <label class="mdl-tooltip" for="restaurant-status">{{model.hours.status}}</label>
+            {{/if}}
+          </div>
 
+
+          <div class="row">
+            {{#if model.categories.0.name}}
+              <div class="restaurant-category col6">{{model.categories.0.shortName}}</div>
+            {{/if}}
+
+            <div class="restaurant-price-category col6 text-right">{{price-category model}}</div>
+          </div>
+
+          <div class="restaurant-rating">{{star-rating venue.response.venue.rating}}</div>
+
+          <div class="address-cont">
+            {{#each model.location.formattedAddress as |line|}}
+            <span class="address-line">{{line}}</span>
+            {{/each}}
+          </div>
+
+          <div class="opening-times">
+            <h4>Opening times</h4>
+            <ul>
+              {{#each model.hours.timeframes as |timeframe|}}
+                <li class="timeframe-line"><span>{{timeframe.days}}</span><span>{{timeframe.open.0.renderedTime}}</span></li>
+              {{/each}}
+            </ul>
+
+
+          </div>
+
+        </div>
         <div class="mdl-card__actions mdl-card--border">
-          <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-            Get Started
+          <a href="{{model.canonicalUrl}}" target="_blank" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+            Visit at Foursquare
           </a>
         </div>
+
       </div>
 
     </div>

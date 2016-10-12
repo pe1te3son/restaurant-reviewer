@@ -1,8 +1,11 @@
 .restaurant-card.mdl-card
 
 .restaurant-bg
-  height: 450px
+  height: 20em
+  padding: 0 !important
   background-size: cover !important
+  img
+    height: 100%
 
 .drestaurant-card > .mdl-card__title
   color: #fff
@@ -14,3 +17,57 @@
 
 .img-responsive
   width: 100%
+
+.tag
+  display: inline-block
+  margin: 0 10px 10px 0
+
+.tag-icon
+  font-size: 0.9em
+  margin-right: 5px
+
+.restaurant-rating
+  margin-top: 25px
+
+.address-cont
+  margin-top: 25px
+
+.address-line
+  display: block
+  margin-bottom: 5px
+
+#restaurant-status
+  font-size: 2rem
+  color: $color8
+  +position(absolute, 15px -7px null null)
+  &:hover
+    cursor: pointer
+
+.is-open
+  color: $color2 !important
+
+.title-cont
+  position: relative
+
+.reasons-list
+  list-style: none
+  padding:
+  color: $color9
+  border-left: 2px solid
+  font-style: italic
+
+.timeframe-line
+  span:first-child
+    margin-right: 20px
+
+.restaurant-tags
+  margin-top: 20px
+  color: $color9
+
+.restaurant-likes
+  color: $color9
+  line-height: 1em
+  color: $color1
+  padding: 10px 20px
+  i
+    font-size: 0.8em
