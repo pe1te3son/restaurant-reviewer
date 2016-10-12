@@ -6,7 +6,7 @@
       <button type="button" name="button" class="back-btn">back</button>
 
       {{#link-to 'home' class="site-title"}}
-        <span class="mdl-layout-title">Restaurant Reviewer</span>
+        <h1 class="mdl-layout-title">Restaurant Reviewer</h1>
       {{/link-to}}
       <!-- Add spacer, to align navigation to the right -->
       <div class="mdl-layout-spacer"></div>
@@ -25,7 +25,6 @@
         </div>
 
         <div class="mdl-card__actions mdl-card--border">
-
           <ul class="reasons-list">
             {{#each model.reasons.items as |reason|}}
             <li class="reason-item">"{{reason.summary}}"</li>
@@ -37,10 +36,9 @@
               <li class="tag"><i class="material-icons tag-icon" aria-hidden="true">local_offer</i>{{tag}}</li>
             {{/each}}
           </ul>
-
         </div>
 
-      </div>
+      </div>{{!-- /.restaurant-card --}}
 
       <div class="restaurant-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
         <div class="mdl-card__supporting-text">
@@ -57,7 +55,6 @@
             {{#if model.categories.0.name}}
               <div class="restaurant-category col6">{{model.categories.0.shortName}}</div>
             {{/if}}
-
             <div class="restaurant-price-category col6 text-right">{{price-category model}}</div>
           </div>
 
@@ -76,8 +73,6 @@
                 <li class="timeframe-line"><span>{{timeframe.days}}</span><span>{{timeframe.open.0.renderedTime}}</span></li>
               {{/each}}
             </ul>
-
-
           </div>
 
         </div>
