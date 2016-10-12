@@ -45,6 +45,12 @@ export default Ember.Controller.extend({
     placeFound(latLng){
       $('#fixed-header-drawer-exp').val('');
       $('#fixed-header-drawer-exp').blur();
+      this.transitionToRoute('search-results', {
+          queryParams: {
+            lat: latLng.lat,
+            lng:  latLng.lng
+          }
+      });
 
       const link = this.get('requestLink').build(latLng.lat, latLng.lng);
       return fetch(link).then((response)=>{
@@ -53,6 +59,7 @@ export default Ember.Controller.extend({
       .then((respJson)=>{
         this.disableLoadMoreButton(false);
         this.set('model', respJson);
+
         return;
       })
       .fail(()=>{
