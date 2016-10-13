@@ -2,8 +2,10 @@
   <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
       <!-- Title -->
-
-      <button type="button" name="button" class="back-btn">back</button>
+      <label for="go-back" class="sr-only">go back</label>
+      <button id="go-back" {{ action "goBack"}}>
+        <i class="material-icons" aria-hidden="true">chevron_left</i>
+      </button>
 
       {{#link-to 'home' class="site-title"}}
         <h1 class="mdl-layout-title">Restaurant Reviewer</h1>

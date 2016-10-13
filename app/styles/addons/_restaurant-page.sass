@@ -40,6 +40,8 @@
   font-size: 2rem
   color: $color8
   +position(absolute, 15px -7px null null)
+  background: $color4
+  border-radius: 50%
   &:hover
     cursor: pointer
 
@@ -72,21 +74,17 @@
   i
     font-size: 0.8em
 
-.comment-head
-  color: $color9
+#go-back
+  +position(absolute, 0 null null 0)
+  height: 64px !important
+  width: 48px
+  background: $color7
+  color: $color6
+  border: none
+  &:hover
+    background: lighten($color7, 5%)
+    cursor: pointer
 
-.comment-item
-  margin-bottom: 25px
-  padding-top: 15px
-  border-top: 1px solid rgba(0, 0, 0, 0.1)
-
-.user-img
-
-  img
-    border-radius: 50%
-    +size(50px)
-    background: $color9
-    width: 100%
-
-.comment-user-name
-  padding: 15px
+@media screen and (max-width: 1024px)
+  #go-back
+    height: 56px !important
