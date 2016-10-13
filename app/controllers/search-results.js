@@ -1,6 +1,11 @@
 import Ember from 'ember';
 import $ from 'jquery';
 
+/**
+* @name Search Result Controller
+* @desc Search Result page Controller
+* @param { Query } queryParams - lat and lng from trasition
+*/
 export default Ember.Controller.extend({
   geolocate: Ember.inject.service('geolocate'),
   requestLink: Ember.inject.service('build-requestlink'),
@@ -15,6 +20,7 @@ export default Ember.Controller.extend({
     Ember.run.schedule('afterRender', ()=>{
       try {
         if(!this.get('model').response.venues.length){
+          // Disable filter menu if no restaurants on page
           $('#nav-init').attr('disabled', 'disabled');
         }
       }
@@ -24,6 +30,10 @@ export default Ember.Controller.extend({
     });
   },
 
+  /**
+  * @name Model listener
+  * @desc Each time model has been changed rerender displayed restaurants
+  */
   modelHasChange: function(){
     this.set('restaurants', []);
     try{
@@ -31,6 +41,7 @@ export default Ember.Controller.extend({
 
         let list = this.createCategoryList(this.get('model').response.venues);
         this.set('restaurantSelectList', list);
+        // Request first 6 restaurants
         this.requestRestaurants(0, 6);
 
       }
@@ -42,6 +53,13 @@ export default Ember.Controller.extend({
   }.observes('model'),
 
   actions: {
+
+    /**
+    * @name Place found
+    * @desc If triggered it reloads current view with new values. Recevies
+    * params from input with with Google autocomplete Api
+    * @param { Object } latLng - object with lattitude and longtitude
+    */
     placeFound(latLng){
       $('#fixed-header-drawer-exp').val('');
       $('#fixed-header-drawer-exp').blur();
@@ -53,11 +71,13 @@ export default Ember.Controller.extend({
       });
 
       const link = this.get('requestLink').build(latLng.lat, latLng.lng);
+      // Fetch restaurants nearby
       return fetch(link).then((response)=>{
         return response.json();
       })
       .then((respJson)=>{
         this.disableLoadMoreButton(false);
+        // Reset model with new restaurants
         this.set('model', respJson);
 
         return;
@@ -92,6 +112,7 @@ export default Ember.Controller.extend({
         return;
       }
       let filteredByCategory = [];
+      // Create category list with restaurant ids
       for(var j=0; j<this.model.response.venues.length; j++){
         if(this.model.response.venues[j].categories[0].id === categoryId){
           filteredByCategory.push(this.model.response.venues[j].id);
@@ -99,9 +120,13 @@ export default Ember.Controller.extend({
       }
 
       this.set('filteredRestaurants', filteredByCategory);
+      // Clear view
       this.set('restaurants', []);
+      // Set filter active
       this.set('filterActive', true);
+      // Unlock load more button
       this.disableLoadMoreButton(false);
+      // Fetch first 6 from category list
       this.requestRestaurants(0, 6, filteredByCategory);
     },
 
@@ -149,9 +174,11 @@ export default Ember.Controller.extend({
 
     // Build array of ids from all nearby restaurants saved in model
     let restaurantIds = [];
+
     let countMax = indexStart + count >= this.model.response.venues.length ? this.model.response.venues.length : indexStart + count;
 
     if(optionalRestaurantsArray){
+      // If optional Array with ids passed slice it based on first 2 options
       restaurantIds = optionalRestaurantsArray.slice(indexStart, countMax);
     } else {
       for(var i=indexStart; i<countMax; i++){
@@ -193,13 +220,16 @@ export default Ember.Controller.extend({
     const firstEl = focusableElements[0];
     const lastEl = focusableElements[focusableElements.length - 1];
 
+    // Focus first element in menu
     firstEl.focus();
     sideNav.addEventListener('keydown', (event)=>{
 
+      // If Esc pressed
       if(event.keyCode === 27) {
         return backgroundActiveEl.focus();
       }
 
+      // Trap Tab key while menu open
       this.trapTabKey(event, firstEl, lastEl );
     });
   },
@@ -241,10 +271,17 @@ export default Ember.Controller.extend({
     return list.uniqBy('categoryName');
   },
 
+  /**
+  * @name Disable load more button
+  * @desc Based on the boolean passed it will disable or enable load more button
+  * @param { boolean } condition
+  */
   disableLoadMoreButton(condition){
     if(condition){
+      // True
       return $('.load-more-btn').attr('disabled', 'disabled');
     }
+    // False
     return $('.load-more-btn').removeAttr('disabled');
   }
 

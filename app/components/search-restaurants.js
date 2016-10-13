@@ -1,5 +1,11 @@
 import Ember from 'ember';
 
+/**
+* @name Search restaurant
+* @desc Retrieves geometry location based on input
+* @requires Google Api
+* @return Ember action
+*/
 export default Ember.Component.extend({
   geolocateSRV: Ember.inject.service('geolocate'),
   tagName: 'input',
@@ -21,6 +27,7 @@ export default Ember.Component.extend({
           lng: place.geometry.location.lng()
         };
 
+        // Send action parent with object containing lat and lng
         this.sendAction('action', placeLocation);
         this.get('geolocateSRV').autocomplete.unbindAll();
       }

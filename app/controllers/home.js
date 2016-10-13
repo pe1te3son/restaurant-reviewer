@@ -1,6 +1,10 @@
 import Ember from 'ember';
 import $ from 'jquery';
 
+/**
+* @name Home Controller
+* @desc Home page Controller
+*/
 export default Ember.Controller.extend({
   autocompleteSrv: Ember.inject.service('geolocate'),
   showWarning: false,
@@ -23,6 +27,7 @@ export default Ember.Controller.extend({
     },
 
     submitSearch(){
+      // Escape no value
       if(typeof this.get('place') === 'undefined') { return; }
 
       const place = this.get('place');
