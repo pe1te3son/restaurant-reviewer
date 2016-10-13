@@ -1,22 +1,17 @@
 .review-form-card
-  max-height: 300px !important
+  max-height: 300px
 
 .review-form
   width: 90%
   margin: 20px auto
   *
     box-sizing: border-box !important
-
-.mdl-textfield
-  width: 100%
+  .mdl-textfield
+    width: 100%
 
 #review-input
   display: block
   width: 100% !important
-
-@media screen and (max-width: 839px)
-  .review-form-card
-    order: -1 !important
 
 .rating-legend
   height: 0
@@ -39,4 +34,6 @@
   i
     font-size: 60px
 
-.ratings-cont
+@media screen and (max-width: 839px)
+  .review-form-card
+    max-height: none !important
