@@ -18,7 +18,6 @@
     <div class="mdl-grid grid-handle">
 
       <div class="restaurant-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--7-col mdl-cell--12-col-tablet">
-
         <div class="mdl-card__title restaurant-bg" style={{best-photo model.bestPhoto}}></div>
 
         <div class="restaurant-likes text-right">
@@ -88,19 +87,19 @@
 
       </div>{{!-- /.restaurant-card --}}
 
-    </div>{{!-- /.mdl-grid --}}
+    </section>{{!-- /.mdl-grid --}}
 
-    <div class="mdl-grid grid-handle">
+    <section class="mdl-grid grid-handle restaurant-reviews">
+
+        {{review-form
+          tagName="div"
+          class="review-form-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet"
+        }}
 
         {{restaurant-comments
           tagName="div"
           comments=model.tips.groups.0.items
           class="comments-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet"
-        }}
-
-        {{review-form
-          tagName="div"
-          class="review-form-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet"
         }}
 
     </div>
