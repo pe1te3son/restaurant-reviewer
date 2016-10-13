@@ -1,0 +1,42 @@
+.review-form-card
+  max-height: 300px !important
+
+.review-form
+  width: 90%
+  margin: 20px auto
+  *
+    box-sizing: border-box !important
+
+.mdl-textfield
+  width: 100%
+
+#review-input
+  display: block
+  width: 100% !important
+
+@media screen and (max-width: 839px)
+  .review-form-card
+    order: -1 !important
+
+.rating-legend
+  height: 0
+  overflow: hidden
+
+.ratings-cont
+  margin-bottom: 30px
+  position: relative
+  width: 70%
+  float: right
+  display: inline-block
+  fieldset
+    +position(absolute, 20px 0 null null)
+
+.current-user-img
+  width: 30%
+  display: inline-block
+  float: left
+  color: $color9
+  i
+    font-size: 60px
+
+.ratings-cont

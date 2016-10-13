@@ -1,0 +1,29 @@
+<form class="review-form">
+
+  <div class="row">
+    <div class="current-user-img">
+      <i class="material-icons">account_circle</i>
+    </div>
+
+    {{star-rate-input
+      class="ratings-cont"
+      tagName="div"
+    }}
+  </div>
+
+
+  <div class="mdl-textfield mdl-js-textfield">
+    <textarea class="mdl-textfield__input" type="text" rows= "4" id="review-input" ></textarea>
+    <label class="mdl-textfield__label" for="review-input">Write a review...</label>
+  </div>
+
+  <div class="text-right">
+    <button
+      class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+      type="submit"
+      {{ action "submitReview"}}> 
+      Publish
+    </button>
+  </div>
+
+</form>
