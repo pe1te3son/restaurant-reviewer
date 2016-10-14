@@ -5,6 +5,7 @@ import Ember from 'ember';
 * @desc Restaurant page Controller
 */
 export default Ember.Controller.extend({
+  loaderOn: false,
 
   modelHasChange: function(){
 
@@ -20,6 +21,11 @@ export default Ember.Controller.extend({
     goBack(){
       // Back button in header
       history.back();
+    },
+
+    initLoader(isLoaderOn){
+      // Turn Loader on or off
+      this.set('loaderOn', isLoaderOn);
     }
   }
 });

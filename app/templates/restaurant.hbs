@@ -14,6 +14,11 @@
       <div class="mdl-layout-spacer"></div>
     </div>
   </header>
+
+  {{circle-loader
+    loaderOn=loaderOn
+  }}
+
   <main class="mdl-layout__content" role="main">
 
     <section class="mdl-grid grid-handle restaurant-details">
@@ -100,6 +105,7 @@
           tagName="div"
           comments=model.tips.groups.0.items
           class="comments-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet"
+          initLoader="initLoader"
         }}
 
     </section>
