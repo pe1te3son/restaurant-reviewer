@@ -7,7 +7,6 @@
   </header>
   <main class="mdl-layout__content" role="main">
     <div class="page-content">
-
       <form class="home-page-form text-right {{if showWarning 'has-warning'}}" >
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label home-page-text-field">
 
@@ -23,6 +22,12 @@
           <i class="material-icons">search</i>
         </button>
       </form>
+
+      <div class="warning-msg {{if showWarning 'show'}}">
+        <p>
+          Something went wrong. Please try again or reload the page!
+        </p>
+      </div>
 
     </div>
   </main>
