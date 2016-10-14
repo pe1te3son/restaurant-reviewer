@@ -6,10 +6,9 @@
    follow these rules. Every browser that supports :checked also supports :not(), so
    it doesn’t make the test unnecessarily selective */
 .rating:not(:checked) > input {
-    position:absolute;
-    //top:-9999px;
-    z-index: -10000;
-    clip:rect(0,0,0,0);
+    position:absolute !important;
+    //top:-9999px !important;
+    clip:rect(0,0,0,0) !important;
 }
 
 .rating:not(:checked) > label {
@@ -21,7 +20,7 @@
     cursor:pointer;
     font-size:200%;
     line-height:1.2;
-    color:#ddd;
+    color:$color5;
     // text-shadow:1px 1px #bbb, 2px 2px #666, .1em .1em .2em rgba(0,0,0,.5);
 }
 
