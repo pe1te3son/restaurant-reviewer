@@ -3,8 +3,8 @@
 </div>
 <div class="mdl-card__supporting-text">
 
-  <ul class="list--unstyled">
-    {{#each (slice-array comments 5) as |comment|}}
+  <ul class="list--unstyled" id="all-comments">
+    {{#each currentComments as |comment|}}
     <li class="comment-item">
 
       <div class="row">
