@@ -42,7 +42,7 @@ export default Ember.Controller.extend({
         let list = this.createCategoryList(this.get('model').response.venues);
         this.set('restaurantSelectList', list);
         // Request first 6 restaurants
-        this.requestRestaurants(0, 6);
+        this.requestRestaurants(0, 10);
 
       }
     }
@@ -108,7 +108,7 @@ export default Ember.Controller.extend({
       if(!categoryId.length){
         this.set('restaurants', []);
         this.set('filterActive', false);
-        this.requestRestaurants(0, 6);
+        this.requestRestaurants(0, 10);
         return;
       }
       let filteredByCategory = [];
@@ -127,7 +127,7 @@ export default Ember.Controller.extend({
       // Unlock load more button
       this.disableLoadMoreButton(false);
       // Fetch first 6 from category list
-      this.requestRestaurants(0, 6, filteredByCategory);
+      this.requestRestaurants(0, 10, filteredByCategory);
     },
 
     loadMore(){
@@ -146,7 +146,7 @@ export default Ember.Controller.extend({
       }
 
       // Load more
-      this.requestRestaurants(currentlyOnScreen, 6, this.get('filteredRestaurants'));
+      this.requestRestaurants(currentlyOnScreen, 10, this.get('filteredRestaurants'));
     },
   },//actions
 
