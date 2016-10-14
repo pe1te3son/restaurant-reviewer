@@ -1,5 +1,10 @@
 import Ember from 'ember';
 
+/**
+* @name Price Category
+* @desc Returns a price category value from Foursquare Api
+* @return string
+*/
 export function priceCategory(params/*, hash*/) {
 
   if(!params[0]) { return ''; }

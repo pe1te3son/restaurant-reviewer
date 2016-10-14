@@ -1,5 +1,10 @@
 import Ember from 'ember';
 
+/**
+* @name Star rating
+* @desc Converts Foursquare Api rating system into star rating system
+* @return html safe string
+*/
 export function starRating(params/*, hash*/) {
   const [rating] = params;
 
