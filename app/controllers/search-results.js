@@ -169,7 +169,9 @@ export default Ember.Controller.extend({
   */
   requestRestaurants(...params){
 
-    this.set('loaderOn', true);
+    if(!this.get('loaderOn')){
+      this.set('loaderOn', true);
+    }
     const [indexStart, count, optionalRestaurantsArray] = params;
 
     // Build array of ids from all nearby restaurants saved in model
