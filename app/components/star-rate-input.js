@@ -7,16 +7,19 @@ import $ from 'jquery';
 */
 export default Ember.Component.extend({
   didInsertElement(){
-      $("input[name=rating]:radio").on('focus', function(){
-        $('#star-rating-cont').css({'border-bottom': '2px solid #007dba'});
+      const $radionButtons = $("input[name=rating]:radio");
+      const $fieldset = $('#star-rating-cont');
+
+      $radionButtons.on('focus', function(){
+        $fieldset.css({'border-bottom': '2px solid #007dba'});
       });
 
-      $("input[name=rating]:radio").on('blur', function(){
-        $('#star-rating-cont').css({'border-bottom': 'none'});
+      $radionButtons.on('blur', function(){
+        $fieldset.css({'border-bottom': 'none'});
       });
 
-      $("input[name=rating]:radio").bind( "change", function( /*event*/ ) {
-      console.log('Lang: '+$(this).val());
+      $radionButtons.bind( "change", function( /*event*/ ) {
+      console.log('Star: '+$(this).val());
       // Call function here
     });
   },
