@@ -14,14 +14,15 @@ export default Ember.Controller.extend({
   queryParams: ['lat', 'lng'],
   filterActive: false,
   filteredRestaurants: null,
+  errorMessage: false,
 
   init(){
     Ember.run.schedule('afterRender', ()=>{
-      console.log(this.get('model'));
       try {
-        if(!this.get('model').venues.length){
+        if(!this.get('model').venues){
           // Disable filter menu if no restaurants on page
           $('#nav-init').attr('disabled', 'disabled');
+          this.set('errorMessage', true);
         }
       }
       catch(err){
