@@ -19,11 +19,11 @@ You will need the following things properly installed on your computer.
 
 * `git clone <repository-url>` this repository
 * `cd restaurant-reviewer`
+* `npm install -g ember-cli`
 * `npm install`
 * `bower install`
 
 ## How to use
-
 * `ember serve`
 * Visit your app at [http://localhost:4200](http://localhost:4200).
 * `ember build --environment production` (to build production version)
