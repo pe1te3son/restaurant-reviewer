@@ -78,12 +78,14 @@ export default Ember.Controller.extend({
       })
       .then((respJson)=>{
         this.disableLoadMoreButton(false);
-        // Reset model with new restaurants
-        this.set('model', respJson);
 
+        // Reset model with new restaurants
+        respJson.response.lat = latLng.lat;
+        respJson.response.lng = latLng.lng;
+        this.set('model', respJson.response);
         return;
       })
-      .fail(()=>{
+      .catch(()=>{
         this.disableLoadMoreButton(true);
       });
 
