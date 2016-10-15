@@ -1,22 +1,29 @@
 <span class="nav-title">Restaurant Reviewer</span>
-<div class="" id="category-filter">
+<div class="" id="filter-container">
+
   <div class="select-group">
-    <label for="select-category">Select Category</label>
-    <select class="select-category" onchange={{ action "categorySelected" value="target.value"}} id="select-category" tabindex="0">
-      <option value="">None</option>
-      {{#each restaurantSelectList as |item| }}
-      <option value={{item.categoryId}}>{{item.categoryName}}</option>
-      {{/each}}
+    <label for="select-price">Price</label>
+    <select onchange={{ action "priceSelected" value="target.value"}} id="select-price" tabindex="0">
+      <option value="0">All</option>
+      <option value="1">Cheap</option>
+      <option value="2">Moderate</option>
+      <option value="3">Expensive</option>
+      <option value="4">Very Expensive</option>
     </select>
   </div>
 
-  {{!-- <div class="select-group">
-    <label for="select-ratings">Price</label>
-    <select onchange={{ action "ratingsSelected" value="target.value"}} id="select-ratings" tabindex="0">
-      <option value="">All</option>
-
-    </select>
-  </div> --}}
+  <div class="is-open-select">
+    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-1">
+      {{input type="checkbox" id="switch-1" class="mdl-switch__input" checked=isChecked}}
+      <span class="mdl-switch__label">
+        {{#if isChecked}}
+          Open Now
+        {{else}}
+          Closed
+        {{/if}}
+      </span>
+    </label>
+  </div>
 
   <div class="filter-btn text-right">
     <button aria-label="filter" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" onclick={{action "filterRestaurants"}} tabindex="0">

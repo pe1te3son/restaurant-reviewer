@@ -6,7 +6,8 @@ import Ember from 'ember';
 * @return Ember action
 */
 export default Ember.Component.extend({
-  selectedItem: null,
+  price: "0",
+  isChecked: true,
   didInsertElement(){
     this._super();
     /* global componentHandler */
@@ -14,15 +15,18 @@ export default Ember.Component.extend({
   },
 
   actions: {
-    categorySelected(value){
-      this.set('selectedItem', value);
+    priceSelected(value){
+      this.set('price', value);
     },
 
     // Send action to parent
     filterRestaurants(){
-      if(this.get('selectedItem') === null){ return; }
-      this.sendAction('filterInit', this.get('selectedItem'));
+      this.sendAction('filterInit', {
+        price: this.get('price'),
+        isOpen: this.get('isChecked')
+      });
     }
+
   }
 
 });
