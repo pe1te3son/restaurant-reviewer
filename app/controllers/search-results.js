@@ -97,37 +97,67 @@ export default Ember.Controller.extend({
 
     /**
     * @name Filter Selected
-    * @desc Filters restaurants by category each time new category selected
-    * @param { String } categoryId - category id
+    * @desc Filters restaurants based on the filter values
+    * @param { Object } filterOptions - selected filter values
     */
-    filterSelected(categoryId){
-      if(this.get('categoryId') === categoryId) { return; }
+    filterSelected(filterOptions){
+      // If selecting the same values exit
+      // Prevents from spaming filter button
+      if(this.get('filterOptions') === filterOptions) { return; }
 
-      this.disableLoadMoreButton(false);
-      this.set('categoryId', categoryId);
-      if(!categoryId.length){
+      this.set('loaderOn', true);
+      this.set('filterOptions', filterOptions);
+
+      // Set queries for foursquare
+      let queryOptions = {
+        lat: this.get('model').lat,
+        lng: this.get('model').lng,
+        isOpen: true
+      };
+
+      // '0' === all prices
+      if(filterOptions.price !== '0'){
+        queryOptions.price = filterOptions.price;
+      }
+
+      if(!filterOptions.isOpen){
+        queryOptions.isOpen = false;
+      }
+
+      const link = this.get('requestLink').explore(queryOptions);
+
+      // Fetch restaurants based on filter values
+      fetch(link).then((response)=>{
+        return response.json();
+      }).then((resp)=>{
+
+        // Build id list
+        let filteredRestaurantIds = [];
+        resp.response.groups[0].items.forEach((venue)=>{
+          filteredRestaurantIds.push(venue.venue.id);
+        });
+
+        this.set('filteredRestaurants', filteredRestaurantIds);
+        // Clear view
         this.set('restaurants', []);
-        this.set('filterActive', false);
-        this.requestRestaurants(0, 10);
-        return;
-      }
-      let filteredByCategory = [];
-      // Create category list with restaurant ids
-      for(var j=0; j<this.model.response.venues.length; j++){
-        if(this.model.response.venues[j].categories[0].id === categoryId){
-          filteredByCategory.push(this.model.response.venues[j].id);
-        }
-      }
+        // Set filter active
+        this.set('filterActive', true);
+        // Unlock load more button
+        this.disableLoadMoreButton(false);
+        // Fetch first 6 from category list
+        this.requestRestaurants(0, 15, filteredRestaurantIds);
 
-      this.set('filteredRestaurants', filteredByCategory);
-      // Clear view
-      this.set('restaurants', []);
-      // Set filter active
-      this.set('filterActive', true);
-      // Unlock load more button
-      this.disableLoadMoreButton(false);
-      // Fetch first 6 from category list
-      this.requestRestaurants(0, 10, filteredByCategory);
+        return;
+
+      }).catch((err)=>{
+
+        Ember.run.later(()=>{
+          this.set('loaderOn', false);
+        }, 500);
+        console.log('failed to fetch restaurants');
+        console.log(err);
+
+      });
     },
 
     loadMore(){
@@ -136,10 +166,17 @@ export default Ember.Controller.extend({
 
       // Don`t include load more button
       const currentlyOnScreen = $('#venues').children().length - 1;
-      this.disableLoadMoreButton(this.get('model').venues.length === currentlyOnScreen);
+
+      if(this.get('filterActive')){
+        // Disable load more button if condition is true
+        // if condition is true, all restaurants have been loaded on screen
+        this.disableLoadMoreButton(this.get('filteredRestaurants').length === currentlyOnScreen);
+      } else {
+        this.disableLoadMoreButton(this.get('model').venues.length === currentlyOnScreen);
+      }
 
       // Load more
-      this.requestRestaurants(currentlyOnScreen, 10);
+      this.requestRestaurants(currentlyOnScreen, 15, this.get('filteredRestaurants'));
     },
   },//actions
 
@@ -210,7 +247,7 @@ export default Ember.Controller.extend({
     }
     const focusableElementString = 'select:not([disabled]), button:not([disabled]), [tabindex="0"], input:not([disabled]), a[href]';
     const backgroundActiveEl = document.activeElement;
-    const sideNav = document.getElementById('category-filter');
+    const sideNav = document.getElementById('filter-container');
     const focusableElements =  sideNav.querySelectorAll(focusableElementString);
     const firstEl = focusableElements[0];
     const lastEl = focusableElements[focusableElements.length - 1];
