@@ -20,6 +20,11 @@ export default Ember.Service.extend({
     if(lat && lng && categoryId){
       return  `https://api.foursquare.com/v2/venues/search?categoryId=${categoryId}&ll=${lat},${lng}&radius=10000&${this.get('clientId')}&${this.get('clientSecret')}&v=20160929`;
     }
+  },
 
+  explore(options){
+    const {lat, lng, price} = options;
+    console.log(options);
+    return `https://api.foursquare.com/v2/venues/explore?categoryId=4d4b7105d754a06374d81259&ll=${lat},${lng}&radius=10000&price=${price}&limit=30&q=Food&${this.get('clientId')}&${this.get('clientSecret')}&v=20160929`;
   }
 });
