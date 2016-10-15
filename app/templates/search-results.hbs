@@ -37,6 +37,12 @@
          {{/each}}
       {{/if}}
 
+      {{#if errorMessage}}
+      <p>
+        Oops, samething went wrong. Please reload the page or try later!
+      </p>
+      {{/if}}
+
       {{#if (isGreaterThan 1 model.venues.length)}}
       <div class="text-center mdl-cell--12-col">
         <h2 class="no-restaurants" tabindex="0">Could not find any restaurants near your.</h2>
