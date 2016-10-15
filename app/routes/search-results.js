@@ -7,6 +7,8 @@ export default Ember.Route.extend({
     return fetch(link).then((response)=>{
       return response.json();
     }).then((resp)=>{
+      resp.response.lat = params.lat;
+      resp.response.lng = params.lng;
       return resp.response;
     });
   }
