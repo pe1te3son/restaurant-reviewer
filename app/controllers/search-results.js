@@ -37,18 +37,15 @@ export default Ember.Controller.extend({
   */
   modelHasChange: function(){
     this.set('restaurants', []);
-    try{
-      if(this.get('model').venues.length) {
+    if(!this.get('model').venues){ return; }
 
-        let list = this.createCategoryList(this.get('model').venues);
-        this.set('restaurantSelectList', list);
-        // Request first 6 restaurants
-        this.requestRestaurants(0, 10);
+    if(this.get('model').venues.length) {
 
-      }
-    }
-    catch(err){
-      console.log(err);
+      let list = this.createCategoryList(this.get('model').venues);
+      this.set('restaurantSelectList', list);
+      // Request first 15 restaurants
+      this.requestRestaurants(0, 15, this.get('filteredRestaurants'));
+
     }
 
   }.observes('model'),
