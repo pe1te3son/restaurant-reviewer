@@ -1,9 +1,10 @@
 # Restaurant-reviewer
 
-( in progress )
+Developed a restaurant review application with a focus on accessibility. Remotely accessing JSON data from Foursquare API and reloading with new data if a filter is applied. The user can search for restaurants by selecting a location with help of Google's autocomplete API. Each restaurant displays information and currently submitted reviews.
 
-Developed a restaurant review application with a focus on accessibility. Remotely accessing JSON data from Foursquare API.
+[Live Demo](https://restaurant-reviewer-a36e7.firebaseapp.com/)
 
+![Screenshort](https://github.com/pe1te3son/cdn/blob/master/restaurant-reviewer/restaurant-reviewer-git-image.jpg?raw=true)
 ## Prerequisites
 
 You will need the following things properly installed on your computer.
@@ -21,15 +22,11 @@ You will need the following things properly installed on your computer.
 * `npm install`
 * `bower install`
 
-## Running / Development
+## How to use
 
 * `ember serve`
 * Visit your app at [http://localhost:4200](http://localhost:4200).
-
-### How to use
-
-* `ember build` (development)
-* `ember build --environment production` (production)
+* `ember build --environment production` (to build production version)
 
 ## Further Reading / Useful Links
 
@@ -43,3 +40,5 @@ You will need the following things properly installed on your computer.
 ## Credits
 
 [Star widget](http://lea.verou.me/2011/08/accessible-star-rating-widget-with-pure-css/)
+
+[Foursquare API](foursquare.com)
