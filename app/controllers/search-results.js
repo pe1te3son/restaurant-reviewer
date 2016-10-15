@@ -16,16 +16,16 @@ export default Ember.Controller.extend({
   filteredRestaurants: null,
 
   init(){
-
     Ember.run.schedule('afterRender', ()=>{
+      console.log(this.get('model'));
       try {
-        if(!this.get('model').response.venues.length){
+        if(!this.get('model').venues.length){
           // Disable filter menu if no restaurants on page
           $('#nav-init').attr('disabled', 'disabled');
         }
       }
       catch(err){
-        console.log('There are no restaurants');
+        console.error(err);
       }
     });
   },
@@ -37,9 +37,9 @@ export default Ember.Controller.extend({
   modelHasChange: function(){
     this.set('restaurants', []);
     try{
-      if(this.get('model').response.venues.length) {
+      if(this.get('model').venues.length) {
 
-        let list = this.createCategoryList(this.get('model').response.venues);
+        let list = this.createCategoryList(this.get('model').venues);
         this.set('restaurantSelectList', list);
         // Request first 6 restaurants
         this.requestRestaurants(0, 10);
@@ -136,17 +136,10 @@ export default Ember.Controller.extend({
 
       // Don`t include load more button
       const currentlyOnScreen = $('#venues').children().length - 1;
-
-      if(this.get('filterActive')){
-        // Disable load more button if condition is true
-        // if condition is true, all restaurants have been loaded on screen
-        this.disableLoadMoreButton(this.get('filteredRestaurants').length === currentlyOnScreen);
-      } else {
-        this.disableLoadMoreButton(this.get('model').response.venues.length === currentlyOnScreen);
-      }
+      this.disableLoadMoreButton(this.get('model').venues.length === currentlyOnScreen);
 
       // Load more
-      this.requestRestaurants(currentlyOnScreen, 10, this.get('filteredRestaurants'));
+      this.requestRestaurants(currentlyOnScreen, 10);
     },
   },//actions
 
@@ -177,14 +170,14 @@ export default Ember.Controller.extend({
     // Build array of ids from all nearby restaurants saved in model
     let restaurantIds = [];
 
-    let countMax = indexStart + count >= this.model.response.venues.length ? this.model.response.venues.length : indexStart + count;
+    let countMax = indexStart + count >= this.model.venues.length ? this.model.venues.length : indexStart + count;
 
     if(optionalRestaurantsArray){
       // If optional Array with ids passed slice it based on first 2 options
       restaurantIds = optionalRestaurantsArray.slice(indexStart, countMax);
     } else {
       for(var i=indexStart; i<countMax; i++){
-        restaurantIds.push(this.model.response.venues[i].id);
+        restaurantIds.push(this.model.venues[i].id);
       }
     }
 
