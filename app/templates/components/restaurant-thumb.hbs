@@ -1,4 +1,5 @@
-<div class="mdl-card__title card-background" style={{best-photo venue.response.venue.bestPhoto}}>
+<div class="mdl-card__title card-background">
+    <img class="thumb-img" src="{{venue.response.venue.bestPhoto.prefix}}400{{venue.response.venue.bestPhoto.suffix}}" alt="Picture of {{venue.response.venue.name}}" />
 
   <h2 class="mdl-card__title-text card-title">
     {{#link-to 'restaurant' venue.response.venue.id tabindex="0" class="thumb-link"}}
