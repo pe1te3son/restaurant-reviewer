@@ -23,8 +23,8 @@
 
     <section class="mdl-grid grid-handle restaurant-details">
       <div class="restaurant-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--7-col mdl-cell--12-col-tablet">
-        <div class="mdl-card__title restaurant-bg" style={{best-photo model.bestPhoto}}></div>
-
+        <div class="mdl-card__title restaurant-bg" style={{best-photo model.bestPhoto}} role="img" aria-labelledby="img-label"></div>
+        <span class="sr-only" id="img-label">Picture of {{model.name}}</span>
         <div class="restaurant-likes text-right">
             <i class="material-icons" aria-hidden="true">thumb_up</i>
             <span>{{model.likes.count}}</span>
