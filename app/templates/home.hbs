@@ -2,7 +2,7 @@
   <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
       <!-- Title -->
-      <span class="mdl-layout-title">Restaurant Reviewer</span>
+      <h1 class="mdl-layout-title">Restaurant Reviewer</h1>
     </div>
   </header>
   <main class="mdl-layout__content" role="main">
@@ -18,7 +18,7 @@
             <label class="mdl-textfield__label text-center home-page-label" for="current-location">Current Location</label>
           {{/if}}
         </div>
-        <button role="button" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-js-ripple-effect" type="submit" {{ action "submitSearch"}} tabindex="0">
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored mdl-js-ripple-effect" type="submit" {{ action "submitSearch"}}>
           <i class="material-icons">search</i>
         </button>
       </form>
