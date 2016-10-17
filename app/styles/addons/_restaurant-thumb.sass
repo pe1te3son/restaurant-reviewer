@@ -9,11 +9,13 @@
   right: 0
 
 .card-background
+  position: relative
   height: 13rem
   background-color: darkgray
   background-size: cover !important
   color: $color4
   padding: 0
+  overflow: hidden
 
 .thumb-info
   position: relative
@@ -39,6 +41,7 @@
   background: transparentize($color5, 0.4)
   width: 100%
   padding: 2rem 4px 1rem
+  z-index: 2
   a
     color: $color4
     text-decoration: none
@@ -50,3 +53,8 @@
   margin-bottom: 0
   height: 2em
   overflow: hidden
+
+.thumb-img
+  +position(absolute, 0 0 null 0)
+  z-index: 1
+  width: 100%
