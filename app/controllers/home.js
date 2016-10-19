@@ -9,35 +9,35 @@ export default Ember.Controller.extend({
   autocompleteSrv: Ember.inject.service('geolocate'),
   showWarning: false,
 
-  init(){
-    Ember.run.schedule('afterRender', ()=>{
+  init () {
+    Ember.run.schedule('afterRender', () => {
       $('#current-location').focus();
     });
   },
 
   actions: {
-    placeFound(latLng){
+    placeFound (latLng) {
       this.set('place', latLng);
       this.transitionToRoute('search-results', {
-          queryParams: {
-            lat: latLng.lat,
-            lng:  latLng.lng
-          }
-        });
+        queryParams: {
+          lat: latLng.lat,
+          lng: latLng.lng
+        }
+      });
     },
 
-    submitSearch(){
+    submitSearch () {
       // Escape no value
-      if(typeof this.get('place') === 'undefined') { return; }
+      if (typeof this.get('place') === 'undefined') { return; }
 
       const place = this.get('place');
       this.transitionToRoute('search-results', {
-          queryParams: {
-            lat: place.lat,
-            lng:  place.lng
-          }
-        });
-    },
-  },//actions
+        queryParams: {
+          lat: place.lat,
+          lng: place.lng
+        }
+      });
+    }
+  } // actions
 
 });

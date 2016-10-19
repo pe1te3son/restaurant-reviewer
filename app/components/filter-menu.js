@@ -6,21 +6,21 @@ import Ember from 'ember';
 * @return Ember action
 */
 export default Ember.Component.extend({
-  price: "0",
+  price: '0',
   isChecked: true,
-  didInsertElement(){
+  didInsertElement () {
     this._super();
     /* global componentHandler */
     componentHandler.upgradeAllRegistered();
   },
 
   actions: {
-    priceSelected(value){
+    priceSelected (value) {
       this.set('price', value);
     },
 
     // Send action to parent
-    filterRestaurants(){
+    filterRestaurants () {
       this.sendAction('filterInit', {
         price: this.get('price'),
         isOpen: this.get('isChecked')

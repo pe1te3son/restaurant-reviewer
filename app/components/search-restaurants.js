@@ -11,14 +11,14 @@ export default Ember.Component.extend({
   tagName: 'input',
   attributeBindings: ['type', 'tabindex', 'placeholder', 'value'],
 
-  focusIn: function(){
+  focusIn: function () {
     /* global componentHandler */
-    if(componentHandler){
+    if (componentHandler) {
       componentHandler.upgradeAllRegistered();
     }
 
     this.get('geolocateSRV').initAutocomplete(this.elementId);
-    this.get('geolocateSRV').autocomplete.addListener('place_changed', ()=>{
+    this.get('geolocateSRV').autocomplete.addListener('place_changed', () => {
       const place = this.get('geolocateSRV').autocomplete.getPlace();
 
       try {
@@ -30,14 +30,15 @@ export default Ember.Component.extend({
         // Send action parent with object containing lat and lng
         this.sendAction('action', placeLocation);
         this.get('geolocateSRV').autocomplete.unbindAll();
-      }
-      catch(err){
+      } catch (err) {
         // Reports error if form submited by pressing enter. The reason is
         // that it doesn`t wait for promise to be resolved
-        if(typeof err.TypeError === 'undefined') { return; }
+        if (typeof err.TypeError === 'undefined') {
+          return;
+        }
         console.error(err);
       }
     });
-  },
+  }
 
 });
