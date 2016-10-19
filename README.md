@@ -26,7 +26,7 @@ You will need the following things properly installed on your computer.
 ## How to use
 * `ember serve`
 * Visit your app at [http://localhost:4200](http://localhost:4200).
-* `ember build --environment production` (to build production version)
+* `ember b -prod` (to build production version)
 
 ## Further Reading / Useful Links
 
