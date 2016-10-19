@@ -1,5 +1,8 @@
 # Restaurant-reviewer
 
+[![js-semistandard-style](https://img.shields.io/badge/code%20style-semistandard-brightgreen.svg?style=flat-square)](https://github.com/Flet/semistandard)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/845dd1820049449f94f2ab067f3930a1)](https://www.codacy.com/app/2010janak2010/restaurant-reviewer?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=pe1te3son/restaurant-reviewer&amp;utm_campaign=Badge_Grade)
+
 Developed a restaurant review application with a focus on accessibility. Remotely accessing JSON data from Foursquare API and reloading with new data if a filter is applied. The user can search for restaurants by selecting a location with help of Google's autocomplete API. Each restaurant displays information and currently submitted reviews.
 
 [Live Demo](https://restaurant-reviewer-a36e7.firebaseapp.com/)
