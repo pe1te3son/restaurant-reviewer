@@ -5,14 +5,14 @@ export default Ember.Service.extend({
   initAutocomplete: function (elemenId) {
       // Create the autocomplete object, restricting the search to geographical
       // location types.
-      if (elemenId) {
-        let autocomplete = new google.maps.places.Autocomplete(
+    if (elemenId) {
+      let autocomplete = new google.maps.places.Autocomplete(
             /** @type {!HTMLInputElement} */(document.getElementById(elemenId)),
             {types: ['geocode']});
 
-        this.geolocate(autocomplete);
-        this.set('autocomplete', autocomplete);
-      }
+      this.geolocate(autocomplete);
+      this.set('autocomplete', autocomplete);
+    }
   },
 
   geolocate: function (autocomplete) {
