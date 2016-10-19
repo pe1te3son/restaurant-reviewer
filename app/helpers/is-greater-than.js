@@ -7,18 +7,15 @@ import Ember from 'ember';
 * @param { Number } param[1]
 * @return boolean
 */
-export function isGreaterThan(params/*, hash*/) {
-
-  if(!params) {
+export function isGreaterThan (params/*, hash */) {
+  if (!params) {
     console.error('[ isGreaterThan ]: requires two values');
     return;
   }
-  if(params.length === 2){
+  if (params.length === 2) {
     return params[0] > params[1];
   }
   console.error('[ isGreaterThan ]: takes two values');
-
-
 }
 
 export default Ember.Helper.helper(isGreaterThan);

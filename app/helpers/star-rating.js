@@ -5,13 +5,13 @@ import Ember from 'ember';
 * @desc Converts Foursquare Api rating system into star rating system
 * @return html safe string
 */
-export function starRating(params/*, hash*/) {
+export function starRating (params/*, hash */) {
   const [rating] = params;
 
   let ratingEl = '';
-  let currentRating = Math.round(rating/2);
-  for(var i=0; i< 5; i++){
-    if(i >= currentRating){
+  let currentRating = Math.round(rating / 2);
+  for (var i = 0; i < 5; i++) {
+    if (i >= currentRating) {
       ratingEl += '<i class="material-icons star-rate">star_rate</i>';
       continue;
     }

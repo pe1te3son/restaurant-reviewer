@@ -41,10 +41,15 @@
     "ember-resolver": "^2.0.3",
     "ember-welcome-page": "^1.0.1",
     "loader.js": "^4.0.1",
-    "node-sass": "^3.10.0"
+    "node-sass": "^3.10.0",
+    "semistandard": "^9.1.0"
   },
   "semistandard": {
-    "globals": [ "Materialize" ],
+    "globals": [
+      "Materialize",
+      "history",
+      "fetch"
+    ],
     "ignore": [
       "testem.js",
       "/tests/",

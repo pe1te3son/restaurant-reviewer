@@ -7,23 +7,21 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
   loaderOn: false,
 
-  modelHasChange: function(){
-
-    Ember.run.schedule('afterRender', ()=>{
+  modelHasChange: function () {
+    Ember.run.schedule('afterRender', () => {
       /* global componentHandler */
       // Upgrade mdl lite register
       componentHandler.upgradeAllRegistered();
     });
-
   }.observes('model'),
 
   actions: {
-    goBack(){
+    goBack () {
       // Back button in header
       history.back();
     },
 
-    initLoader(isLoaderOn){
+    initLoader (isLoaderOn) {
       // Turn Loader on or off
       this.set('loaderOn', isLoaderOn);
     }

@@ -3,7 +3,7 @@
 module.exports = function(environment) {
   var ENV = {
     modulePrefix: "restaurant-reviewer",
-    environment: environment,
+    environment,
     rootURL: "/",
     locationType: "auto",
     EmberENV: {

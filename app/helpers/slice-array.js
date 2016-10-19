@@ -7,7 +7,7 @@ import Ember from 'ember';
 * @param { Number } params[1]
 * @return array
 */
-export function sliceArray(params/*, hash*/) {
+export function sliceArray (params/*, hash */) {
   return params[0].slice(0, params[1]);
 }
 

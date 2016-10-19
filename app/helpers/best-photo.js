@@ -6,7 +6,7 @@ import Ember from 'ember';
 * @requires Foursquare Api
 * @return css background: url()
 */
-export function bestPhoto(params/*, hash*/) {
+export function bestPhoto (params/*, hash */) {
   return Ember.String.htmlSafe(`background: url('${params[0].prefix}400${params[0].suffix}')`);
 }
 
