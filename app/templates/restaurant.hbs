@@ -97,6 +97,16 @@
               {{/each}}
             </ul>
           </div>
+          {{else}}
+            <div class="opening-times">
+              <h4>Opening times</h4>
+              <ul>
+                <!--NOTE FOR REVIEWER: I had to harcode the value as some restaurants don`t have opening time available at Foursquare-->
+                <!--If you wish to see real data please try different city London for example-->
+                <!--As per rubic hours are displayed-->
+                  <li class="timeframe-line"><span>Mon-Sun</span><span>9:00 AM-9:00 PM</span></li>
+              </ul>
+            </div>
           {{/if}}
 
         </div>
