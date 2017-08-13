@@ -56,12 +56,7 @@
       <div class="restaurant-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--5-col mdl-cell--12-col-tablet">
         <div class="mdl-card__supporting-text">
           <div id="map-iframe">
-            <iframe
-            width="100%"
-            height="220"
-            frameborder="0" style="border:0"
-            src="https://www.google.com/maps/embed/v1/view?key=AIzaSyBWQCdqj7vqJ82Mo08pn2LoYrMuH7R9W3k&center={{model.location.lat}},{{model.location.lng}}&zoom=16" allowfullscreen>
-            </iframe>
+            {{google-map id="google-map" lat=model.location.lat lng=model.location.lng}}
           </div>
           <div class="title-cont">
             <h2 class="restaurant-title">{{model.name}}</h2>
