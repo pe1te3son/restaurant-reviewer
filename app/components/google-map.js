@@ -1,6 +1,8 @@
 import Ember from 'ember';
 import $ from 'jquery';
 
+/*global google*/
+/*eslint no-unused-vars: "listener"*/
 export default Ember.Component.extend({
   didReceiveAttrs(){
     this._super(...arguments);
@@ -24,7 +26,8 @@ export default Ember.Component.extend({
       // $mapEl.find('a').attr('tabindex', 999);
       // google.maps.event.removeListener(listener)
       // const test = $('[tabindex]').parent('.gm-style');
-      const test = $mapEl.find('div[tabindex="0"]').attr('tabindex', "-1");
+      $mapEl.find('div[tabindex="0"]').attr('tabindex', "-1");
+      google.maps.event.removeListener(listener);
     });
   }
 });
